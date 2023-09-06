@@ -20,28 +20,26 @@ special_tokens_to_remove = [
     "<ſɭɘſ͕ȷƽ>",
 ]
 
-# Load the custom vocabulary from the JSON file
-with open("ſȷᴜͷ̗ ſɭɔʞ ꞁȷ̀ᴜꞇ.json", "r", encoding="utf-8") as vocab_file:
-    custom_vocab = json.load(vocab_file)
+custom_vocab = tokenizer.get_vocab()
 
+# ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ
 prompts = [
     "ꞁȷ̀ɔ ſᶘᴜ ɽ͑ʃ'ᴜ",
     "ɭʃᴜ ꞁȷ̀ᴜ ɽ͑ʃ'ᴜȝ",
-    "ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ"
+    "ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ",
+    "}ʃɔ ֭ſɭᴜ ı],ɹ"
     ]
 
 # Store generated sequences in a list
 generated_token_ids_list = []
 
 # Define a function to decode token IDs using the custom vocabulary
-def decode_token_ids(encoded_list, custom_vocab):
-    # 1. Create a reverse mapping of token IDs to tokens in your custom vocabulary
+def decode_token_ids(encoded_list):
+    # Create a reverse mapping of token IDs to tokens in your custom vocabulary
     reverse_vocab = {v: k for k, v in custom_vocab.items()}
-    
-    # 2. Use the reverse mapping to convert token IDs back to tokens
+    # Use the reverse mapping to convert token IDs back to tokens
     decoded_tokens = [reverse_vocab[token_id] for token_id in encoded_list]
-    
-    # 3. Join the tokens together to form the decoded text
+    # Join the tokens together to form the decoded text
     decoded_text = ' '.join(decoded_tokens)
     
     return decoded_text
@@ -75,11 +73,11 @@ def zechawekiif(prompt):
 
     # Decode the generated text using decode_token_ids function
     generated_token_ids = output[0].tolist()
-    generated_text = decode_token_ids(generated_token_ids, custom_vocab)
+    generated_text = decode_token_ids(generated_token_ids)
     return generated_text
 
 
-# Debugging Output
+# ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ
 for prompt in prompts:
     zechawekiif(prompt)
 
@@ -90,7 +88,7 @@ decoded_sequences = []
 for generated_token_ids in generated_token_ids_list:
     if generated_token_ids:
         # Decode the token IDs
-        decoded_text = decode_token_ids(generated_token_ids, custom_vocab)
+        decoded_text = decode_token_ids(generated_token_ids)
     else:
         decoded_text = "ꞁȷ̀ɔȝ ɭl̀ɹƽ"  # Handle empty sequences
 
@@ -110,6 +108,8 @@ while True:
     user_input = input()
     
     if user_input.lower() == ' ':
+        break
+    if user_input.lower() == '':
         break
     
     generated_text = zechawekiif(user_input)

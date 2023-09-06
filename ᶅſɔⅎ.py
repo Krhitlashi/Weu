@@ -4,13 +4,13 @@ import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 import os
 
-batch_size = 64
-learning_rate = 1e-4
-num_epochs = 10
-vocab_size = 80 # Define your vocabulary size
-embedding_dim = 256  # Define the dimension of word embeddings
-hidden_dim = 512  # Define the dimension of hidden layers
-num_layers = 2  # Number of recurrent layers if using RNN or transformer layers if using a transformer
+cakapofal = 128 # ſɟᴜ ſɭᴜɘ ꞁȷ̀ɜ ſȷᴜͷ̗
+xaanetsara = 1e-4 # ʃэc̗ ꞁȷ̀ɔ ſᶘᴜ ɽ͑ʃ'ᴜ
+terhoosiikaahaa = 16 # j͑ʃɹ ſɭэ ֭ſɭэ
+kefpalaa = 112 # j͑ʃп́ɔ ſɭɔʞ ſןᴜ j͐ʃэ
+cakofal = 512  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗
+cakofaltlakak = 512  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗ ſ̀ȷᴜ ſɭᴜƽ ꞁȷ̀ᴜꞇ
+tomaanitla = 2  # ɭʃɜ ŋᷠэ }ʃꞇ ſ̀ȷᴜ j͑ʃᴜꞇ
 
 # Initialize the tokenizer
 tokenizer = GPT2Tokenizer.from_pretrained("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ")
@@ -18,11 +18,17 @@ tokenizer = GPT2Tokenizer.from_pretrained("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀
 # Read data from a text file
 with open("ſɭɔʞ.txt", "r", encoding="utf-8") as file:
     text_data = file.read()
+with open("ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\j͑ʃƽᴜ ſɭɔʞ\ſɭɹ j͑ʃᴜ ŋᷠꞇ ɭʃᴜƴ ſɭɹ j͑ʃᴜ ŋᷠꞇ ɭʃᴜƴ ſɭɹ j͑ʃᴜ ŋᷠꞇ ɭʃᴜƴ.txt", "r", encoding="utf-8") as file:
+    kiisamitarh = file.read()
+with open("ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\j͑ʃƽᴜ ſɭɔʞ\}ʃɔ ֭ſɭᴜ ı]ɹ ⺓ ſᶘᴜƴ ꞁȷ̀ᴜ }ʃꞇ.txt", "r", encoding="utf-8") as file:
+    nehashiipiisetsarh = file.read()
 
 # Preprocess the data
-max_length = 712
+max_length = 1248
 tokens = tokenizer(
     text_data,
+    kiisamitarh,
+    nehashiipiisetsarh,
     max_length=max_length,
     padding="max_length",
     truncation=True
@@ -54,7 +60,7 @@ if len(train_data) > 0:
 
     # Create a DataLoader instance for training
     train_dataset = CustomDataset(train_data)
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+    train_loader = DataLoader(train_dataset, batch_size=cakapofal, shuffle=True)
 
     # Example: Iterate through the DataLoader
     for batch in train_loader:
@@ -78,7 +84,7 @@ train_dataset = CustomDataset(train_data)
 train_loader = DataLoader(train_dataset, batch_size=100, shuffle=True)
 
 val_dataset = CustomDataset(val_data)
-val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
+val_loader = DataLoader(val_dataset, batch_size=cakapofal, shuffle=False)
 
 # Define your custom language model architecture
 class CustomLanguageModel(nn.Module):
@@ -106,14 +112,14 @@ class CustomLanguageModel(nn.Module):
         return output
 
 # Initialize the model
-model = CustomLanguageModel(vocab_size, embedding_dim, hidden_dim, num_layers)
+model = CustomLanguageModel(kefpalaa, cakofal, cakofaltlakak, tomaanitla)
 
 # Define loss function and optimizer
 criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+optimizer = torch.optim.Adam(model.parameters(), lr=xaanetsara)
 
 # Training loop
-for epoch in range(num_epochs):
+for siikaahaa in range(terhoosiikaahaa):
     for batch in train_loader:
         input_ids = batch
 
@@ -121,7 +127,7 @@ for epoch in range(num_epochs):
         outputs = model(input_ids)
 
         # Reshape for the loss function
-        outputs = outputs.view(-1, vocab_size)
+        outputs = outputs.view(-1, kefpalaa)
         input_ids = input_ids.view(-1)
 
         # Calculate loss
@@ -139,15 +145,15 @@ for epoch in range(num_epochs):
         for val_batch in val_loader:
             val_input_ids = val_batch
             val_outputs = model(val_input_ids)
-            val_outputs = val_outputs.view(-1, vocab_size)
+            val_outputs = val_outputs.view(-1, kefpalaa)
             val_input_ids = val_input_ids.view(-1)
             val_loss += criterion(val_outputs, val_input_ids).item()
         val_loss /= len(val_loader)
 
-    print(f"Epoch [{epoch+1}/{num_epochs}] Loss: {loss.item():.4f} Validation Loss: {val_loss:.4f}")
+    print(f"Epoch [{siikaahaa+1}/{siikaahaa}] Loss: {loss.item():.4f} Validation Loss: {val_loss:.4f}")
 
     # Checkpointing code (save the model if validation loss decreases)
-    if epoch == 0:
+    if siikaahaa == 0:
         best_val_loss = val_loss
     elif val_loss < best_val_loss:
         best_val_loss = val_loss
