@@ -16,8 +16,10 @@ tomaanitla = 2  # ɭʃɜ ŋᷠэ }ʃꞇ ſ̀ȷᴜ j͑ʃᴜꞇ
 tokenizer = GPT2Tokenizer.from_pretrained("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ")
 
 # Read data from a text file
-with open("ſɭɔʞ.txt", "r", encoding="utf-8") as file:
-    text_data = file.read()
+with open("ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ.txt", "r", encoding="utf-8") as file:
+    oshiipewa = file.read()
+with open("ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ꞁȷ̀ꞇ }ʃᴜƽ ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ.txt", "r", encoding="utf-8") as file:
+    inakoshiipewa = file.read()
 with open("ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\j͑ʃƽᴜ ſɭɔʞ\ſɭɹ j͑ʃᴜ ŋᷠꞇ ɭʃᴜƴ ſɭɹ j͑ʃᴜ ŋᷠꞇ ɭʃᴜƴ ſɭɹ j͑ʃᴜ ŋᷠꞇ ɭʃᴜƴ.txt", "r", encoding="utf-8") as file:
     kiisamitarh = file.read()
 with open("ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\j͑ʃƽᴜ ſɭɔʞ\}ʃɔ ֭ſɭᴜ ı]ɹ ⺓ ſᶘᴜƴ ꞁȷ̀ᴜ }ʃꞇ.txt", "r", encoding="utf-8") as file:
@@ -26,7 +28,8 @@ with open("ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\j͑ʃƽᴜ ſɭɔʞ\}ʃɔ ֭ſɭᴜ 
 # Preprocess the data
 max_length = 1248
 tokens = tokenizer(
-    text_data,
+    oshiipewa,
+    inakoshiipewa,
     kiisamitarh,
     nehashiipiisetsarh,
     max_length=max_length,
@@ -157,7 +160,7 @@ for siikaahaa in range(terhoosiikaahaa):
         best_val_loss = val_loss
     elif val_loss < best_val_loss:
         best_val_loss = val_loss
-        torch.save(model.state_dict(), "ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ j͑ʃᴜꞇ ᶅſɔƴ.pt")
+        torch.save(model.state_dict(), "ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ j͑ʃᴜꞇ ᶅſɔⅎ.pt")
 
 # Save the final trained model
 final_model_path = "ᶅſɔⅎ.pt"
