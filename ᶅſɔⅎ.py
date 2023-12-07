@@ -12,10 +12,10 @@ cakofal = 512  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗
 cakofaltlakak = 512  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗ ſ̀ȷᴜ ſɭᴜƽ ꞁȷ̀ᴜꞇ
 tomaanitla = 2  # ɭʃɜ ŋᷠэ }ʃꞇ ſ̀ȷᴜ j͑ʃᴜꞇ
 
-# Initialize the tokenizer
-tokenizer = GPT2Tokenizer.from_pretrained("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ")
+# ſɭʞɹ ſɟᴜ j͑ʃ'ɔɔ˞ ꞁȷ̀ɔ j͑ʃƽɔƽ
+cazeseskek = GPT2Tokenizer.from_pretrained("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ")
 
-# Read data from a text file
+# j͑ʃ'ɔ ſȷᴜͷ̗
 with open("ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ.txt", "r", encoding="utf-8") as file:
     oshiipewa = file.read()
 with open("ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ꞁȷ̀ꞇ }ʃᴜƽ ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ.txt", "r", encoding="utf-8") as file:
@@ -25,31 +25,30 @@ with open("ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\j͑ʃƽᴜ ſɭɔʞ\ſɭɹ j͑ʃᴜ 
 with open("ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\j͑ʃƽᴜ ſɭɔʞ\}ʃɔ ֭ſɭᴜ ı]ɹ ⺓ ſᶘᴜƴ ꞁȷ̀ᴜ }ʃꞇ.txt", "r", encoding="utf-8") as file:
     nehashiipiisetsarh = file.read()
 
-# Preprocess the data
-max_length = 1248
-tokens = tokenizer(
+# ʃэ ֭ſɭɜ ᶅſɔ
+shaqasaieskek = cazeseskek(
     oshiipewa,
     inakoshiipewa,
     kiisamitarh,
     nehashiipiisetsarh,
-    max_length=max_length,
+    max_length=1248,
     padding="max_length",
     truncation=True
 )
-input_ids = tokens["input_ids"]
-attention_mask = tokens["attention_mask"]
+sashesaiksaka = shaqasaieskek["input_ids"]
+attention_mask = shaqasaieskek["attention_mask"]
 
 # Split data into training, validation, and test sets
-train_size = int(0.8 * len(input_ids))
-val_size = int(0.1 * len(input_ids))
-test_size = len(input_ids) - train_size - val_size
+palaazeretsara = int(0.8 * len(sashesaiksaka))
+palaasiiroliimi = int(0.1 * len(sashesaiksaka))
+palaakeze = len(sashesaiksaka) - palaazeretsara - palaasiiroliimi
 
-train_data = input_ids[:train_size]
-val_data = input_ids[train_size:train_size + val_size]
-test_data = input_ids[train_size + val_size:]
+zopiizeretsara = sashesaiksaka[:palaazeretsara]
+zopiisiiroliimi = sashesaiksaka[palaazeretsara:palaazeretsara + palaasiiroliimi]
+zopiikeze = sashesaiksaka[palaazeretsara + palaasiiroliimi:]
 
-# Check if train_data is not empty
-if len(train_data) > 0:
+# Check if zopiizeretsara is not empty
+if len(zopiizeretsara) > 0:
     # Create a custom dataset class
     class CustomDataset(Dataset):
         def __init__(self, data):
@@ -62,14 +61,14 @@ if len(train_data) > 0:
             return self.data[idx]
 
     # Create a DataLoader instance for training
-    train_dataset = CustomDataset(train_data)
+    train_dataset = CustomDataset(zopiizeretsara)
     train_loader = DataLoader(train_dataset, batch_size=cakapofal, shuffle=True)
 
     # Example: Iterate through the DataLoader
     for batch in train_loader:
         print(batch)
 else:
-    print("train_data is empty. Please check your data.")
+    print("ꞁȷ̀ɔ ſ͕ɭᴎɹƽ ⺓ j͑ʃ'ɜ ſןɹ")
 
 # Define a custom dataset class
 class CustomDataset(Dataset):
@@ -83,10 +82,10 @@ class CustomDataset(Dataset):
         return self.data[idx]
 
 # Create DataLoader instances for training, validation, and test sets
-train_dataset = CustomDataset(train_data)
+train_dataset = CustomDataset(zopiizeretsara)
 train_loader = DataLoader(train_dataset, batch_size=100, shuffle=True)
 
-val_dataset = CustomDataset(val_data)
+val_dataset = CustomDataset(zopiisiiroliimi)
 val_loader = DataLoader(val_dataset, batch_size=cakapofal, shuffle=False)
 
 # Define your custom language model architecture
@@ -114,27 +113,27 @@ class CustomLanguageModel(nn.Module):
         output = self.linear(output)
         return output
 
-# Initialize the model
-model = CustomLanguageModel(kefpalaa, cakofal, cakofaltlakak, tomaanitla)
+# ſɭʞɹ ᶅſɔⅎ
+weu = CustomLanguageModel(kefpalaa, cakofal, cakofaltlakak, tomaanitla)
 
 # Define loss function and optimizer
 criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=xaanetsara)
+optimizer = torch.optim.Adam(weu.parameters(), lr=xaanetsara)
 
 # Training loop
 for siikaahaa in range(terhoosiikaahaa):
     for batch in train_loader:
-        input_ids = batch
+        sashesaiksaka = batch
 
         # Forward pass
-        outputs = model(input_ids)
+        outputs = weu(sashesaiksaka)
 
         # Reshape for the loss function
         outputs = outputs.view(-1, kefpalaa)
-        input_ids = input_ids.view(-1)
+        sashesaiksaka = sashesaiksaka.view(-1)
 
         # Calculate loss
-        loss = criterion(outputs, input_ids)
+        loss = criterion(outputs, sashesaiksaka)
 
         # Backward pass and optimization
         optimizer.zero_grad()
@@ -142,26 +141,26 @@ for siikaahaa in range(terhoosiikaahaa):
         optimizer.step()
 
     # Validation code
-    model.eval()
+    weu.eval()
     with torch.no_grad():
         val_loss = 0
         for val_batch in val_loader:
-            val_input_ids = val_batch
-            val_outputs = model(val_input_ids)
+            val_sashesaiksaka = val_batch
+            val_outputs = weu(val_sashesaiksaka)
             val_outputs = val_outputs.view(-1, kefpalaa)
-            val_input_ids = val_input_ids.view(-1)
-            val_loss += criterion(val_outputs, val_input_ids).item()
+            val_sashesaiksaka = val_sashesaiksaka.view(-1)
+            val_loss += criterion(val_outputs, val_sashesaiksaka).item()
         val_loss /= len(val_loader)
 
-    print(f"Epoch [{siikaahaa+1}/{siikaahaa}] Loss: {loss.item():.4f} Validation Loss: {val_loss:.4f}")
+    print(f"<{siikaahaa+1}/{siikaahaa}> j͑ʃᴜꞇ j͑ʃɹ ſɭэ ֭ſɭэ {loss.item():.4f} j͑ʃᴜꞇ ſɟɔ ֭ſɭɹ ""}"f"ʃꞇ {val_loss:.4f} j͑ʃᴜꞇ j͐ʃ j͑ʃɹƣ̋ ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ j͑ʃᴜꞇ ſɟɔ ֭ſɭɹ ""}ʃꞇ")
 
     # Checkpointing code (save the model if validation loss decreases)
     if siikaahaa == 0:
         best_val_loss = val_loss
     elif val_loss < best_val_loss:
         best_val_loss = val_loss
-        torch.save(model.state_dict(), "ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ j͑ʃᴜꞇ ᶅſɔⅎ.pt")
+        torch.save(weu.state_dict(), "ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ j͑ʃᴜꞇ ᶅſɔⅎ.pt")
 
-# Save the final trained model
+# j͑ʃ'ɔ ſ̀ȷᴜȝ
 final_model_path = "ᶅſɔⅎ.pt"
-torch.save(model.state_dict(), final_model_path)
+torch.save(weu.state_dict(), final_model_path)
