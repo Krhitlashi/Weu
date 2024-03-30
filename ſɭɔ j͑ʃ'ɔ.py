@@ -37,8 +37,8 @@ generated_token_ids_list = []
 def decode_token_ids(encoded_list):
     # Create a reverse mapping of token IDs to tokens in your custom vocabulary
     reverse_vocab = {v: k for k, v in custom_vocab.items()}
-    # Use the reverse mapping to convert token IDs back to tokens
-    decoded_tokens = [reverse_vocab[token_id] for token_id in encoded_list]
+    # Filter out token IDs that are not in the custom vocabulary
+    decoded_tokens = [reverse_vocab[token_id] for token_id in encoded_list if token_id in reverse_vocab]
     # Join the tokens together to form the decoded text
     decoded_text = ' '.join(decoded_tokens)
     

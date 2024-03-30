@@ -6,7 +6,7 @@ nltk.download('punkt')
 from nltk.tokenize import word_tokenize
 
 # Load the custom vocabulary from the JSON file
-with open("ſȷᴜͷ̗ ſɭɔʞ ꞁȷ̀ᴜꞇ.json", "r", encoding="utf-8") as vocab_file:
+with open("j͑ʃɹ ſȷɜⅎ ſȷᴜͷ̗.json", "r", encoding="utf-8") as vocab_file:
     custom_vocab = json.load(vocab_file)
 
 # Define your custom tokenizer function
@@ -67,7 +67,7 @@ val_data = all_custom_tokens[train_size:train_size + val_size]
 test_data = all_custom_tokens[train_size + val_size:]
 
 # Initialize the custom tokenizer with the loaded vocabulary
-tokenizer = GPT2Tokenizer(vocab_file="ſȷᴜͷ̗ ſɭɔʞ ꞁȷ̀ᴜꞇ.json", merges_file="ſɭɔʞ ſɟɹƽ ꞁȷ̀ᴜꞇ.txt")
+tokenizer = GPT2Tokenizer(vocab_file="j͑ʃɹ ſȷɜⅎ ſȷᴜͷ̗.json", merges_file="ſɭɔʞ ſɟɹƽ ꞁȷ̀ᴜꞇ.txt")
 
 tokenizer.pad_token = "<ɽ͑ʃ'ſ͕ȷƽ>"
 tokenizer.bos_token = "<j͑ʃı],>"
