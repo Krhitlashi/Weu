@@ -11,8 +11,8 @@ with open("j͑ʃɹ ſȷɜⅎ ſȷᴜͷ̗.json", "r", encoding="utf-8") as vocab_
 
 # Define your custom tokenizer function
 def custom_tokenizer(text):
-    # Tokenize the text using your custom logic
-    tokens = word_tokenize(text)
+    # Tokenize the text using spaces
+    tokens = text.split()
     # Map tokens to their IDs based on your custom vocabulary
     token_ids = [custom_vocab.get(token, custom_vocab["<ſɭſɭſ͕ȷ>"]) for token in tokens]
     return token_ids

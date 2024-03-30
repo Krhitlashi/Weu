@@ -7,7 +7,7 @@ import os
 cakapofal = 128 # ſɟᴜ ſɭᴜɘ ꞁȷ̀ɜ ſȷᴜͷ̗
 xaanetsara = 1e-4 # ʃэc̗ ꞁȷ̀ɔ ſᶘᴜ ɽ͑ʃ'ᴜ
 terhoosiikaahaa = 16 # j͑ʃɹ ſɭэ ֭ſɭэ
-kefpalaa = 2221 # j͑ʃп́ɔ ſɭɔʞ ſןᴜ j͐ʃэ
+kefpalaa = 541 # j͑ʃп́ɔ ſɭɔʞ ſןᴜ j͐ʃэ
 cakofal = 512  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗
 cakofaltlakak = 512  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗ ſ̀ȷᴜ ſɭᴜƽ ꞁȷ̀ᴜꞇ
 tomaanitla = 2  # ɭʃɜ ŋᷠэ }ʃꞇ ſ̀ȷᴜ j͑ʃᴜꞇ
@@ -18,6 +18,8 @@ cazeseskek = GPT2Tokenizer.from_pretrained("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ�
 # j͑ʃ'ɔ ſȷᴜͷ̗
 with open("ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ.txt", "r", encoding="utf-8") as file:
     oshiipewa = file.read()
+with open("ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ſɭɔ ſȷɜⅎ.txt", "r", encoding="utf-8") as file:
+    kefou = file.read()
 with open("ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ꞁȷ̀ꞇ }ʃᴜƽ ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ.txt", "r", encoding="utf-8") as file:
     inakoshiipewa = file.read()
 with open("ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\j͑ʃƽᴜ ſɭɔʞ\ſɭɹ j͑ʃᴜ ŋᷠꞇ ɭʃᴜƴ ſɭɹ j͑ʃᴜ ŋᷠꞇ ɭʃᴜƴ ſɭɹ j͑ʃᴜ ŋᷠꞇ ɭʃᴜƴ.txt", "r", encoding="utf-8") as file:
@@ -28,12 +30,13 @@ with open("ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\j͑ʃƽᴜ ſɭɔʞ\}ʃɔ ֭ſɭᴜ 
 # ʃэ ֭ſɭɜ ᶅſɔ
 shaqasaieskek = cazeseskek(
     oshiipewa,
+    kefou,
     inakoshiipewa,
     kiisamitarh,
     nehashiipiisetsarh,
-    max_length=1248,
+    max_length=2496,
     padding="max_length",
-    truncation=True
+    truncation=False
 )
 sashesaiksaka = shaqasaieskek["input_ids"]
 attention_mask = shaqasaieskek["attention_mask"]
