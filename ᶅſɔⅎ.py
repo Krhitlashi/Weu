@@ -7,7 +7,7 @@ import os
 cakapofal = 128 # ſɟᴜ ſɭᴜɘ ꞁȷ̀ɜ ſȷᴜͷ̗
 xaanetsara = 1e-4 # ʃэc̗ ꞁȷ̀ɔ ſᶘᴜ ɽ͑ʃ'ᴜ
 terhoosiikaahaa = 16 # j͑ʃɹ ſɭэ ֭ſɭэ
-kefpalaa = 112 # j͑ʃп́ɔ ſɭɔʞ ſןᴜ j͐ʃэ
+kefpalaa = 250 # j͑ʃп́ɔ ſɭɔʞ ſןᴜ j͐ʃэ
 cakofal = 512  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗
 cakofaltlakak = 512  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗ ſ̀ȷᴜ ſɭᴜƽ ꞁȷ̀ᴜꞇ
 tomaanitla = 2  # ɭʃɜ ŋᷠэ }ʃꞇ ſ̀ȷᴜ j͑ʃᴜꞇ
