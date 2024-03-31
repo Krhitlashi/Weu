@@ -1,43 +1,38 @@
 import torch
-from transformers import GPT2LMHeadModel, GPT2Tokenizer
+from transformers import GPT2Tokenizer
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
-import os
 
-cakapofal = 128 # ſɟᴜ ſɭᴜɘ ꞁȷ̀ɜ ſȷᴜͷ̗
+cakapofal = 256 # ſɟᴜ ſɭᴜɘ ꞁȷ̀ɜ ſȷᴜͷ̗
 xaanetsara = 1e-4 # ʃэc̗ ꞁȷ̀ɔ ſᶘᴜ ɽ͑ʃ'ᴜ
 terhoosiikaahaa = 16 # j͑ʃɹ ſɭэ ֭ſɭэ
-kefpalaa = 541 # j͑ʃп́ɔ ſɭɔʞ ſןᴜ j͐ʃэ
-cakofal = 512  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗
-cakofaltlakak = 512  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗ ſ̀ȷᴜ ſɭᴜƽ ꞁȷ̀ᴜꞇ
+kefpalaa = 595 # j͑ʃп́ɔ ſɭɔʞ ſןᴜ j͐ʃэ
+cakofal = 1024  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗
+cakofaltlakak = 1024  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗ ſ̀ȷᴜ ſɭᴜƽ ꞁȷ̀ᴜꞇ
 tomaanitla = 2  # ɭʃɜ ŋᷠэ }ʃꞇ ſ̀ȷᴜ j͑ʃᴜꞇ
 
 # ſɭʞɹ ſɟᴜ j͑ʃ'ɔɔ˞ ꞁȷ̀ɔ j͑ʃƽɔƽ
 cazeseskek = GPT2Tokenizer.from_pretrained("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ")
+aracazopii = [
+    "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ.txt",
+    "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ꞁȷ̀ꞇ }ʃᴜƽ ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ.txt",
+    "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ı],ɹ ŋᷠɔ ſɭᴜꞇ }ʃɔ.txt",
+    "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ſɭɔ ſȷɜⅎ.txt",
+    "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\j͑ʃп́ ꞁȷ̀ꞇ }ʃᴜƽ.txt",
+    "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\j͑ʃƽᴜ ſɭɔʞ\ſɭɹ j͑ʃᴜ ŋᷠꞇ ɭʃᴜƴ ſɭɹ j͑ʃᴜ ŋᷠꞇ ɭʃᴜƴ ſɭɹ j͑ʃᴜ ŋᷠꞇ ɭʃᴜƴ.txt",
+    "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\j͑ʃƽᴜ ſɭɔʞ\}ʃɔ ֭ſɭᴜ ı]ɹ ⺓ ſᶘᴜƴ ꞁȷ̀ᴜ }ʃꞇ.txt",
+]
+
+rooza = []
 
 # j͑ʃ'ɔ ſȷᴜͷ̗
-with open("ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ.txt", "r", encoding="utf-8") as file:
-    oshiipewa = file.read()
-with open("ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ſɭɔ ſȷɜⅎ.txt", "r", encoding="utf-8") as file:
-    kefou = file.read()
-with open("ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ꞁȷ̀ꞇ }ʃᴜƽ ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ.txt", "r", encoding="utf-8") as file:
-    inakoshiipewa = file.read()
-with open("ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\j͑ʃƽᴜ ſɭɔʞ\ſɭɹ j͑ʃᴜ ŋᷠꞇ ɭʃᴜƴ ſɭɹ j͑ʃᴜ ŋᷠꞇ ɭʃᴜƴ ſɭɹ j͑ʃᴜ ŋᷠꞇ ɭʃᴜƴ.txt", "r", encoding="utf-8") as file:
-    kiisamitarh = file.read()
-with open("ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\j͑ʃƽᴜ ſɭɔʞ\}ʃɔ ֭ſɭᴜ ı]ɹ ⺓ ſᶘᴜƴ ꞁȷ̀ᴜ }ʃꞇ.txt", "r", encoding="utf-8") as file:
-    nehashiipiisetsarh = file.read()
+for cazopii in aracazopii:
+    with open(cazopii, "r", encoding="utf-8") as file:
+        oshiipewa = file.read()
+    shaqasaieskek = cazeseskek(oshiipewa, padding="max_length", truncation=False, max_length=2496)
+    rooza.extend(shaqasaieskek["input_ids"])
 
 # ʃэ ֭ſɭɜ ᶅſɔ
-shaqasaieskek = cazeseskek(
-    oshiipewa,
-    kefou,
-    inakoshiipewa,
-    kiisamitarh,
-    nehashiipiisetsarh,
-    max_length=2496,
-    padding="max_length",
-    truncation=False
-)
 sashesaiksaka = shaqasaieskek["input_ids"]
 attention_mask = shaqasaieskek["attention_mask"]
 

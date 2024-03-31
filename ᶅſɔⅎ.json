@@ -2,9 +2,9 @@
   "_name_or_path": "\u1d85\u017f\u0254\u214e.pt",
   "activation_function": "gelu_new",
   "attn_pdrop": 0.1,
-  "bos_token_id": 538,
+  "bos_token_id": 592,
   "embd_pdrop": 0.1,
-  "eos_token_id": 539,
+  "eos_token_id": 593,
   "gradient_checkpointing": false,
   "hidden_act": "gelu",
   "initializer_range": 0.02,
@@ -29,7 +29,7 @@
   "transformers_version": "4.32.1",
   "type_vocab_size": 1,
   "use_cache": true,
-  "vocab_size": 541,
-  "pad_token_id": 50258,
-  "unk_token_id": 50259
+  "vocab_size": 595,
+  "pad_token_id": 591,
+  "unk_token_id": 594
 }
