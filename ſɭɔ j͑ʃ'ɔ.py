@@ -1,16 +1,21 @@
 import json
 import torch
 from transformers import GPT2LMHeadModel, GPT2Tokenizer, GPT2Config
+import importlib.util
 
-# Load the custom pretrained language model
-អារាវេំ = "ᶅſɔⅎ.pt"  # Path to your custom trained model
-កឺត្សុ = GPT2Config.from_json_file("ᶅſɔⅎ.json") # Path to your configuration file
+# ꞁȷ̀ᴜ ſ̀ȷɔ
+អារាវេំ = "ᶅſɔⅎ.pt"
+កឺត្សុ = GPT2Config.from_json_file("ᶅſɔⅎ.json")
 វេំ = GPT2LMHeadModel.from_pretrained(អារាវេំ, config=កឺត្សុ)
 
-# Load the custom tokenizer
+# ſɭɹ ɽ͑ʃ'ɔ ſɟᴜ j͑ʃ'ɔɔ˞ ꞁȷ̀ɔ j͑ʃƽɔƽ
+អារាចាថេសអេស្កេក = "ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ.py"
 ចាថេសអេស្កេក = GPT2Tokenizer.from_pretrained("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ")
+ចាថុពិ = importlib.util.spec_from_file_location("custom_module", អារាចាថេសអេស្កេក)
+ចថចាថេសអេស្កេក = importlib.util.module_from_spec(ចាថុពិ)
+ចាថុពិ.loader.exec_module(ចថចាថេសអេស្កេក)
 
-# Define a list of special tokens to remove
+# ſ͕ɭэ ſɭɹ j͐ʃ ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ
 ង៏កិ១សៃអេស្កេក = [
     "<ɽ͑ʃ'ſ͕ȷƽ>",
     "<ſɭſɭſ͕ȷ>",
@@ -29,74 +34,53 @@ from transformers import GPT2LMHeadModel, GPT2Tokenizer, GPT2Config
     "}ʃɔ ֭ſɭᴜ ı],ɹ ɭʃᴜȝ"
     ]
 
-# Store generated sequences in a list
 ចាត្សារា = []
 
-# Define a function to decode token IDs using the custom vocabulary
-def decode_token_ids(encoded_list):
-    # Create a reverse mapping of token IDs to tokens in your custom vocabulary
-    reverse_vocab = {v: k for k, v in ភាលកេភអៃ.items()}
-    # Filter out token IDs that are not in the custom vocabulary
-    decoded_tokens = [reverse_vocab[token_id] for token_id in encoded_list if token_id in reverse_vocab]
-    # Join the tokens together to form the decoded text
-    decoded_text = ' '.join(decoded_tokens)
-    
-    return decoded_text
-
-# Encoding and Generation
+# j͑ʃƽᴜ ſɭɔʞ ꞁȷ̀ᴜ }ʃꞇ
 def ថេខាវេកិភ(អុជិភេវា):
-    # Encode Single Input Text
-    input_ids = ចាថេសអេស្កេក.encode(
-        អុជិភេវា,
-        add_special_tokens=True,
-        return_tensors='pt',
-    )
+    # j͑ʃ'ᴜ ɽ͑ʃ'w j͑ʃ'ᴜ
+    ថារឺថានី = ចាថេសអេស្កេក.encode(អុជិភេវា, add_special_tokens=True, return_tensors='pt')
+    ថារឺថានី = ថារឺថានី.clone().detach()
 
-    # Convert input_ids to PyTorch tensor
-    រឺថា = input_ids.clone().detach()
-
-    # Generate text for the prompt
+    # ſɭʞɹ ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ
     ត្សេំនី = វេំ.generate(
-        រឺថា,
+        ថារឺថានី,
         max_length=200,
-        num_return_sequences=1,  # Number of text samples to generate
-        no_repeat_ngram_size=2,  # Avoid repeating the same phrase
+        num_return_sequences=1,
+        no_repeat_ngram_size=2,
         do_sample=True,
-        top_p=0.8,  # Adjust the top-p value for randomness
-        temperature=0.2,  # Adjust the temperature for creativity
+        top_p=0.8,
+        temperature=0.2
     )
 
-    # Append generated sequences to the list
+    # j͑ʃƽᴜ ſɭɔʞ
     ចាត្សារា.extend(ត្សេំនី.tolist())
-
-    # Decode the generated text using decode_token_ids function
-    generated_token_ids = ត្សេំនី[0].tolist()
-    generated_text = decode_token_ids(generated_token_ids)
-    return generated_text
+    ក្ភិសៃរឺថា = ត្សេំនី[0].tolist()
+    ក្ភិសៃអុជិពេវា = ចថចាថេសអេស្កេក.ស្កាកេភ(ក្ភិសៃរឺថា)
+    return ក្ភិសៃអុជិពេវា
 
 # ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ
 for សាភេនី in ហាសាភេនី:
     ថេខាវេកិភ(សាភេនី)
 
-# Decode the generated sequences
-decoded_sequences = []
+# j͑ʃƽᴜ ſɭɔʞ ſɭɔƽ
+ស្កាកេភអៃកេក = []
 for រឺថា in ចាត្សារា:
     if រឺថា:
-        # Decode the token IDs
-        decoded_text = decode_token_ids(រឺថា)
+        ស្កាកេភអៃអុជិពេវា = ចថចាថេសអេស្កេក.ស្កាកេភ(រឺថា)
     else:
-        decoded_text = "ꞁȷ̀ɔȝ ɭl̀ɹƽ"  # Handle empty sequences
+        ស្កាកេភអៃអុជិពេវា = "ꞁȷ̀ɔȝ ɭl̀ɹƽ"
 
-    decoded_sequences.append(decoded_text)
+    ស្កាកេភអៃកេក.append(ស្កាកេភអៃអុជិពេវា)
 
-for j, decoded_text in enumerate(decoded_sequences):
-    for special_token in ង៏កិ១សៃអេស្កេក:
-        decoded_text = decoded_text.replace(special_token, "")
+for j, ស្កាកេភអៃអុជិពេវា in enumerate(ស្កាកេភអៃកេក):
+    for ជាងាសៃអេស្កេក in ង៏កិ១សៃអេស្កេក:
+        ស្កាកេភអៃអុជិពេវា = ស្កាកេភអៃអុជិពេវា.replace(ជាងាសៃអេស្កេក, "")
     print(f"|{j} j͑ʃᴜꞇ ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ|")
-    print(decoded_text)
+    print(ស្កាកេភអៃអុជិពេវា)
     print("")
 
-# Interactive input and generation loop ı],ɹ ſɭ,ɹ
+# ſɭʞɹ }ʃꞇ
 while True:
     print("j͑ʃɹ ʃᴜ }ʃᴜ ſɭɔʞ ꞁȷ̀ɔƽ ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ |ꞁȷ̀ᴜ ŋᷠɹ ꞁȷ̀ɔƽ j͑ʃɹ ʃᴜ }ʃᴜ ⸙ ⸙|")
     ល៏មារ = input()
@@ -107,8 +91,8 @@ while True:
         break
     
     ត្លាកាកល៏មារ = ថេខាវេកិភ(ល៏មារ)
-    for special_token in ង៏កិ១សៃអេស្កេក:
-        ត្លាកាកល៏មារ = decoded_text.replace(special_token, "")
+    for ជាងាសៃអេស្កេក in ង៏កិ១សៃអេស្កេក:
+        ត្លាកាកល៏មារ = ស្កាកេភអៃអុជិពេវា.replace(ជាងាសៃអេស្កេក, "")
     print("")
     print("|ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ|")
     print(ត្លាកាកល៏មារ)

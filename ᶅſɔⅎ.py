@@ -3,17 +3,17 @@ from transformers import GPT2Tokenizer
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 
-cakapofal = 256 # ſɟᴜ ſɭᴜɘ ꞁȷ̀ɜ ſȷᴜͷ̗
-xaanetsara = 1e-4 # ʃэc̗ ꞁȷ̀ɔ ſᶘᴜ ɽ͑ʃ'ᴜ
-terhoosiikaahaa = 16 # j͑ʃɹ ſɭэ ֭ſɭэ
-kefpalaa = 595 # j͑ʃп́ɔ ſɭɔʞ ſןᴜ j͐ʃэ
-cakofal = 1024  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗
-cakofaltlakak = 1024  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗ ſ̀ȷᴜ ſɭᴜƽ ꞁȷ̀ᴜꞇ
-tomaanitla = 2  # ɭʃɜ ŋᷠэ }ʃꞇ ſ̀ȷᴜ j͑ʃᴜꞇ
+ចាកាពអុភាល = 256 # ſɟᴜ ſɭᴜɘ ꞁȷ̀ɜ ſȷᴜͷ̗
+ផ៏នអេត្សារា = 1e-4 # ʃэc̗ ꞁȷ̀ɔ ſᶘᴜ ɽ͑ʃ'ᴜ
+ហាសិក៏ហ៏ = 16 # j͑ʃɹ ſɭэ ֭ſɭэ
+កេភពាល៏ = 595 # j͑ʃп́ɔ ſɭɔʞ ſןᴜ j͐ʃэ
+ចាកអុភាល = 512  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗
+ចាកអុភាលត្លាកាក = 512  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗ ſ̀ȷᴜ ſɭᴜƽ ꞁȷ̀ᴜꞇ
+តុម៏នីត្លា = 2  # ɭʃɜ ŋᷠэ }ʃꞇ ſ̀ȷᴜ j͑ʃᴜꞇ
 
 # ſɭʞɹ ſɟᴜ j͑ʃ'ɔɔ˞ ꞁȷ̀ɔ j͑ʃƽɔƽ
-cazeseskek = GPT2Tokenizer.from_pretrained("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ")
-aracazopii = [
+ចាថេសអេស្កេក = GPT2Tokenizer.from_pretrained("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ")
+អារាចាថុពិ = [
     "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ.txt",
     "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ꞁȷ̀ꞇ }ʃᴜƽ ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ.txt",
     "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ı],ɹ ŋᷠɔ ſɭᴜꞇ }ʃɔ.txt",
@@ -23,142 +23,118 @@ aracazopii = [
     "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\j͑ʃƽᴜ ſɭɔʞ\}ʃɔ ֭ſɭᴜ ı]ɹ ⺓ ſᶘᴜƴ ꞁȷ̀ᴜ }ʃꞇ.txt",
 ]
 
-rooza = []
+រឺថា = []
 
 # j͑ʃ'ɔ ſȷᴜͷ̗
-for cazopii in aracazopii:
-    with open(cazopii, "r", encoding="utf-8") as file:
-        oshiipewa = file.read()
-    shaqasaieskek = cazeseskek(oshiipewa, padding="max_length", truncation=False, max_length=2496)
-    rooza.extend(shaqasaieskek["input_ids"])
+for ចាថុពិ in អារាចាថុពិ:
+    with open(ចាថុពិ, "r", encoding="utf-8") as file:
+        អុជិពេវា = file.read()
+    ជាងាសៃអេស្កេក = ចាថេសអេស្កេក(អុជិពេវា, padding="max_length", truncation=False, max_length=2496)
+    រឺថា.extend(ជាងាសៃអេស្កេក["input_ids"])
 
 # ʃэ ֭ſɭɜ ᶅſɔ
-sashesaiksaka = shaqasaieskek["input_ids"]
-attention_mask = shaqasaieskek["attention_mask"]
+សាជេសៃក្សាកា = ជាងាសៃអេស្កេក["input_ids"]
+ចាថេសអារអេង្យិក = ជាងាសៃអេស្កេក["attention_mask"]
 
-# Split data into training, validation, and test sets
-palaazeretsara = int(0.8 * len(sashesaiksaka))
-palaasiiroliimi = int(0.1 * len(sashesaiksaka))
-palaakeze = len(sashesaiksaka) - palaazeretsara - palaasiiroliimi
+# ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ }ʃꞇ
+ពាល៏ថេរអេត្សារា = int(0.8 * len(សាជេសៃក្សាកា))
+ពាល៏សិរអុលិមី = int(0.1 * len(សាជេសៃក្សាកា))
+ពាល៏កេថេ = len(សាជេសៃក្សាកា) - ពាល៏ថេរអេត្សារា - ពាល៏សិរអុលិមី
 
-zopiizeretsara = sashesaiksaka[:palaazeretsara]
-zopiisiiroliimi = sashesaiksaka[palaazeretsara:palaazeretsara + palaasiiroliimi]
-zopiikeze = sashesaiksaka[palaazeretsara + palaasiiroliimi:]
+ថុពិថេរអេត្សារា = សាជេសៃក្សាកា[:ពាល៏ថេរអេត្សារា]
+ថុពិសិរអុលិមី = សាជេសៃក្សាកា[ពាល៏ថេរអេត្សារា:ពាល៏ថេរអេត្សារា + ពាល៏សិរអុលិមី]
+ថុពិកេថេ = សាជេសៃក្សាកា[ពាល៏ថេរអេត្សារា + ពាល៏សិរអុលិមី:]
 
-# Check if zopiizeretsara is not empty
-if len(zopiizeretsara) > 0:
-    # Create a custom dataset class
-    class CustomDataset(Dataset):
-        def __init__(self, data):
-            self.data = data
-
+# ꞁȷ̀ᴜ ſᶘᴜ ſɭɜc̗ ꞁȷ̀ɔ ſ͕ɭᴎɹƽ ſןɹ j͑ʃɔ ថុពិថេរអេត្សារា
+if len(ថុពិថេរអេត្សារា) > 0:
+    class អារាហាថុពិ(Dataset):
+        def __init__(self, ថុពិ):
+            self.ថុពិ = ថុពិ
         def __len__(self):
-            return len(self.data)
-
+            return len(self.ថុពិ)
         def __getitem__(self, idx):
-            return self.data[idx]
+            return self.ថុពិ[idx]
 
-    # Create a DataLoader instance for training
-    train_dataset = CustomDataset(zopiizeretsara)
-    train_loader = DataLoader(train_dataset, batch_size=cakapofal, shuffle=True)
+    # j͑ʃᴜ ֭ſɭᴜ ſᶘɹ ɭl̀ɜ
+    ហាត្សិយុសៃថុពិ = អារាហាថុពិ(ថុពិថេរអេត្សារា)
+    ហាត្សិយុសៃផ៏តេមិនី = DataLoader(ហាត្សិយុសៃថុពិ, batch_size=ចាកាពអុភាល, shuffle=True)
 
-    # Example: Iterate through the DataLoader
-    for batch in train_loader:
-        print(batch)
+    # ſןᴜ ı],ɔⅎ ſᶘɜ
+    for ហាតេ in ហាត្សិយុសៃផ៏តេមិនី:
+        print(ហាតេ)
 else:
     print("ꞁȷ̀ɔ ſ͕ɭᴎɹƽ ⺓ j͑ʃ'ɜ ſןɹ")
 
-# Define a custom dataset class
-class CustomDataset(Dataset):
-    def __init__(self, data):
-        self.data = data
+សិអុថុពិ = អារាហាថុពិ(ថុពិសិរអុលិមី)
+សិអុផ៏តេមិនី = DataLoader(សិអុថុពិ, batch_size=ចាកាពអុភាល, shuffle=False)
 
-    def __len__(self):
-        return len(self.data)
-
-    def __getitem__(self, idx):
-        return self.data[idx]
-
-# Create DataLoader instances for training, validation, and test sets
-train_dataset = CustomDataset(zopiizeretsara)
-train_loader = DataLoader(train_dataset, batch_size=100, shuffle=True)
-
-val_dataset = CustomDataset(zopiisiiroliimi)
-val_loader = DataLoader(val_dataset, batch_size=cakapofal, shuffle=False)
-
-# Define your custom language model architecture
-class CustomLanguageModel(nn.Module):
-    def __init__(self, vocab_size, embedding_dim, hidden_dim, num_layers):
-        super(CustomLanguageModel, self).__init__()
+# j͑ʃᴜ ı],ɔ ᶅſɔⅎ
+class វេំ(nn.Module):
+    def __init__(self, កេភពាល៏, ចាកអុភាល, ចាកអុភាលត្លាកាក, តុម៏នីត្លា):
+        super(វេំ, self).__init__()
         
-        # Define embedding layer
-        self.embedding = nn.Embedding(vocab_size, embedding_dim)
-        
-        # Define recurrent layers (you can also use transformer layers here)
-        self.rnn = nn.LSTM(embedding_dim, hidden_dim, num_layers, batch_first=True)
-        
-        # Define output layer (e.g., for language modeling, it could be a linear layer with vocab_size output)
-        self.linear = nn.Linear(hidden_dim, vocab_size)
+        # j͑ʃᴜ ı],ɔ ꞁȷ̀ᴜƣ̋ ꞁȷ̀ɜ ſȷᴜͷ̗
+        self.embedding = nn.Embedding(កេភពាល៏, ចាកអុភាល)
+        # j͑ʃᴜ ı],ɔ j͐ʃ ɭʃɜ ŋᷠэ j͑ʃᴜꞇ ſ̀ȷᴜ
+        self.rnn = nn.LSTM(ចាកអុភាល, ចាកអុភាលត្លាកាក, តុម៏នីត្លា, batch_first=True)
+        # j͑ʃᴜ ı],ɔ ſᶘɔⅎ }ʃꞇ j͑ʃᴜꞇ ſ̀ȷᴜ
+        self.linear = nn.Linear(ចាកអុភាលត្លាកាក, កេភពាល៏)
 
-    def forward(self, x):
-        # Embedding layer
-        embedded = self.embedding(x)
-        
-        # RNN layers
-        output, _ = self.rnn(embedded)
-        
-        # Output layer
-        output = self.linear(output)
-        return output
+    def forward(self, អារាង):
+        # ꞁȷ̀ᴜƣ̋ ꞁȷ̀ɜ ſȷᴜͷ̗
+        អារអុភាល = self.embedding(អារាង)
+        # ſ̀ȷᴜ
+        ត្សេំនី, _ = self.rnn(អារអុភាល)
+        # ſᶘɔⅎ }ʃꞇ j͑ʃᴜꞇ ſ̀ȷᴜ 
+        ត្សេំនី = self.linear(ត្សេំនី)
+        return ត្សេំនី
 
 # ſɭʞɹ ᶅſɔⅎ
-weu = CustomLanguageModel(kefpalaa, cakofal, cakofaltlakak, tomaanitla)
+វេំ = វេំ(កេភពាល៏, ចាកអុភាល, ចាកអុភាលត្លាកាក, តុម៏នីត្លា)
 
-# Define loss function and optimizer
-criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(weu.parameters(), lr=xaanetsara)
+# ſ̀ȷэ }ʃꞇ
+អាត្សាត្ល៏ = nn.CrossEntropyLoss()
+ចាផាកេមា = torch.optim.Adam(វេំ.parameters(), lr=ផ៏នអេត្សារា)
 
-# Training loop
-for siikaahaa in range(terhoosiikaahaa):
-    for batch in train_loader:
-        sashesaiksaka = batch
+# ֭ſɭᴜ ſᶘɹ ɭl̀ɜ }ʃꞇ
+for សិក៏ហ៏ in range(ហាសិក៏ហ៏):
+    for ហាតេ in ហាត្សិយុសៃផ៏តេមិនី:
+        សាជេសៃក្សាកា = ហាតេ
 
-        # Forward pass
-        outputs = weu(sashesaiksaka)
+        # ꞁȷ̀ᴜ ɽ͑ʃ'ᴜ ſ̀ȷᴜ
+        ត្សេំនី = វេំ(សាជេសៃក្សាកា)
+        # j͑ʃᴜ ſɭᴜ j͑ʃᴜ ſ̀ȷэ
+        ត្សេំនី = ត្សេំនី.view(-1, កេភពាល៏)
+        សាជេសៃក្សាកា = សាជេសៃក្សាកា.view(-1)
+        # ʃэc̗ ꞁȷ̀ɔ ſᶘɜ ſ̀ȷэ }ʃꞇ
+        ត្ល៏នី = អាត្សាត្ល៏(ត្សេំនី, សាជេសៃក្សាកា)
 
-        # Reshape for the loss function
-        outputs = outputs.view(-1, kefpalaa)
-        sashesaiksaka = sashesaiksaka.view(-1)
+        # ʃᴜ ſɭɔ ŋᷠᴜ
+        ចាផាកេមា.zero_grad()
+        ត្ល៏នី.backward()
+        ចាផាកេមា.step()
 
-        # Calculate loss
-        loss = criterion(outputs, sashesaiksaka)
-
-        # Backward pass and optimization
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
-
-    # Validation code
-    weu.eval()
+    # j͑ʃɹƣ̋ ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ
+    វេំ.eval()
     with torch.no_grad():
-        val_loss = 0
-        for val_batch in val_loader:
-            val_sashesaiksaka = val_batch
-            val_outputs = weu(val_sashesaiksaka)
-            val_outputs = val_outputs.view(-1, kefpalaa)
-            val_sashesaiksaka = val_sashesaiksaka.view(-1)
-            val_loss += criterion(val_outputs, val_sashesaiksaka).item()
-        val_loss /= len(val_loader)
+        សិអុត្ល៏នី = 0
+        for សិអុហាតេ in សិអុផ៏តេមិនី:
+            សិអុសាជេសៃក្សាកា = សិអុហាតេ
+            សិអុត្សេំនី = វេំ(សិអុសាជេសៃក្សាកា)
+            សិអុត្សេំនី = សិអុត្សេំនី.view(-1, កេភពាល៏)
+            សិអុសាជេសៃក្សាកា = សិអុសាជេសៃក្សាកា.view(-1)
+            សិអុត្ល៏នី += អាត្សាត្ល៏(សិអុត្សេំនី, សិអុសាជេសៃក្សាកា).item()
+        សិអុត្ល៏នី /= len(សិអុផ៏តេមិនី)
 
-    print(f"<{siikaahaa+1}/{siikaahaa}> j͑ʃᴜꞇ j͑ʃɹ ſɭэ ֭ſɭэ {loss.item():.4f} j͑ʃᴜꞇ ſɟɔ ֭ſɭɹ ""}"f"ʃꞇ {val_loss:.4f} j͑ʃᴜꞇ j͐ʃ j͑ʃɹƣ̋ ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ j͑ʃᴜꞇ ſɟɔ ֭ſɭɹ ""}ʃꞇ")
+    print(f"<{សិក៏ហ៏+1}/{សិក៏ហ៏}> j͑ʃᴜꞇ j͑ʃɹ ſɭэ ֭ſɭэ {ត្ល៏នី.item():.4f} j͑ʃᴜꞇ ſɟɔ ֭ſɭɹ ""}"f"ʃꞇ {សិអុត្ល៏នី:.4f} j͑ʃᴜꞇ j͐ʃ j͑ʃɹƣ̋ ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ j͑ʃᴜꞇ ſɟɔ ֭ſɭɹ ""}ʃꞇ")
 
-    # Checkpointing code (save the model if validation loss decreases)
-    if siikaahaa == 0:
-        best_val_loss = val_loss
-    elif val_loss < best_val_loss:
-        best_val_loss = val_loss
-        torch.save(weu.state_dict(), "ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ j͑ʃᴜꞇ ᶅſɔⅎ.pt")
+    # ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ j͑ʃᴜꞇ ᶅſɔⅎ
+    if សិក៏ហ៏ == 0:
+        ក្មអាកីសិអុត្ល៏នី = សិអុត្ល៏នី
+    elif សិអុត្ល៏នី < ក្មអាកីសិអុត្ល៏នី:
+        ក្មអាកីសិអុត្ល៏នី = សិអុត្ល៏នី
+        torch.save(វេំ.state_dict(), "ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ j͑ʃᴜꞇ ᶅſɔⅎ.pt")
 
 # j͑ʃ'ɔ ſ̀ȷᴜȝ
-final_model_path = "ᶅſɔⅎ.pt"
-torch.save(weu.state_dict(), final_model_path)
+អារាវេំ = "ᶅſɔⅎ.pt"
+torch.save(វេំ.state_dict(), អារាវេំ)

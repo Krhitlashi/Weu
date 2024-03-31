@@ -1,49 +1,40 @@
 import json
-import torch
 from transformers import GPT2Tokenizer
-import nltk
-nltk.download('punkt')
-from nltk.tokenize import word_tokenize
 
-# Load the custom vocabulary from the JSON file
+# ꞁȷ̀ᴜ ſ̀ȷɔ ſȷᴜͷ̗ ſɭɔʞ ꞁȷ̀ᴜꞇ
 with open("j͑ʃɹ ſȷɜⅎ ſȷᴜͷ̗.json", "r", encoding="utf-8") as vocab_file:
-    custom_vocab = json.load(vocab_file)
+    ភាលកេភអៃ = json.load(vocab_file)
 
-# Define your custom tokenizer function
-def custom_tokenizer(text):
-    # Tokenize the text using spaces
-    tokens = text.split()
-    # Map tokens to their IDs based on your custom vocabulary
-    token_ids = [custom_vocab.get(token, custom_vocab["<ſɭſɭſ͕ȷ>"]) for token in tokens]
-    return token_ids
+# j͑ʃ'ɔɔ˞ ꞁȷ̀ɔ j͐ʃƽɔƽ ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ
+def ថេសអេស្កេក(text):
+    ចាតាសៃចាថុពិ = text.split()
+    រឺថា = [ភាលកេភអៃ.get(ជាងាសៃអេស្កេក, ភាលកេភអៃ["<ſɭſɭſ͕ȷ>"]) for ជាងាសៃអេស្កេក in ចាតាសៃចាថុពិ]
+    return រឺថា
 
-# Add special tokens programmatically
-special_tokens = ["<ɽ͑ʃ'ſ͕ȷƽ>", "<j͑ʃı],>", "<ſ̀ȷſɭſɭ>", "<ſɭſɭſ͕ȷ>", "<ſɭɘſ͕ȷƽ>"]
-for special_token in special_tokens:
-    if special_token not in custom_vocab:
-        custom_vocab[special_token] = len(custom_vocab)
+# ſ͕ɭэ ſɭɹ ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ
+ង៏កិ១សៃអេស្កេក = ["<ɽ͑ʃ'ſ͕ȷƽ>", "<j͑ʃı],>", "<ſ̀ȷſɭſɭ>", "<ſɭſɭſ͕ȷ>", "<ſɭɘſ͕ȷƽ>"]
+for ជាងាសៃអេស្កេក in ង៏កិ១សៃអេស្កេក:
+    if ជាងាសៃអេស្កេក not in ភាលកេភអៃ:
+        ភាលកេភអៃ[ជាងាសៃអេស្កេក] = len(ភាលកេភអៃ)
 
-# Define a function to tokenize and process text from a file
-def tokenize_and_process_file(file_path):
-    with open(file_path, "r", encoding="utf-8") as file:
-        text = file.read()
+# j͑ʃ'ɔɔ˞ ꞁȷ̀ɔ j͑ʃƽɔƽ
+def ងឺមឺ១សៃអេស្កេក(ចាថុពិ):
+    with open(ចាថុពិ, "r", encoding="utf-8") as file:
+        អុជិពេវា = file.read()
     
-    # Ensure that all tokens in the text are in the custom vocabulary with unique IDs
-    def split_tokens(text):
-        custom_tokens = text.split()  # Split the text into tokens
-        for token in custom_tokens:
-            if token not in custom_vocab:
-                custom_vocab[token] = len(custom_vocab)
-    
-    split_tokens(text)
+    # j͑ʃɹƣ̋ ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ j͑ʃп́ ꞁȷ̀ᴜ ſᶘᴜ ſ͕ɭэ ſɭɹ ſ͕ɭwȝ ɽ͑ʃ'w j͑ʃ'ᴜ
+    def ចាតា(អុជិពេវា):
+        ចាត្សារា = អុជិពេវា.split()
+        for ជាងាសៃអេស្កេក in ចាត្សារា:
+            if ជាងាសៃអេស្កេក not in ភាលកេភអៃ:
+                ភាលកេភអៃ[ជាងាសៃអេស្កេក] = len(ភាលកេភអៃ)
 
-    # Tokenize the text
-    custom_tokens = custom_tokenizer(text)
+    ចាតា(អុជិពេវា)
+    ចាត្សារា = ថេសអេស្កេក(អុជិពេវា)
+    return ចាត្សារា
 
-    return custom_tokens
-
-# Example text file paths
-file_paths = [
+# j͑ʃ'ɔ ſȷᴜͷ̗
+អារាចាថុពិ = [
     "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ.txt",
     "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ꞁȷ̀ꞇ }ʃᴜƽ ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ.txt",
     "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ı],ɹ ŋᷠɔ ſɭᴜꞇ }ʃɔ.txt",
@@ -53,57 +44,39 @@ file_paths = [
     "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\j͑ʃƽᴜ ſɭɔʞ\}ʃɔ ֭ſɭᴜ ı]ɹ ⺓ ſᶘᴜƴ ꞁȷ̀ᴜ }ʃꞇ.txt",
 ]
 
-all_custom_tokens = []
+រឺថា = []
 
-# Process each text file
-for file_path in file_paths:
-    custom_tokens = tokenize_and_process_file(file_path)
-    all_custom_tokens.extend(custom_tokens)
+for ចាថុពិ in អារាចាថុពិ:
+    ជាងាសៃអេស្កេក = ងឺមឺ១សៃអេស្កេក(ចាថុពិ)
+    រឺថា.extend(ជាងាសៃអេស្កេក)
 
-# Split data into training, validation, and test sets
-train_size = int(0.8 * len(all_custom_tokens))
-val_size = int(0.1 * len(all_custom_tokens))
-test_size = len(all_custom_tokens) - train_size - val_size
+# j͑ʃᴜ ı],ɔ ſɟᴜ j͑ʃ'ɔɔ˞ ꞁȷ̀ɔ j͑ʃƽɔƽ
+ចាថេសអេស្កេក = GPT2Tokenizer(vocab_file="j͑ʃɹ ſȷɜⅎ ſȷᴜͷ̗.json", merges_file="ſɭɔʞ ſɟɹƽ ꞁȷ̀ᴜꞇ.txt")
 
-train_data = all_custom_tokens[:train_size]
-val_data = all_custom_tokens[train_size:train_size + val_size]
-test_data = all_custom_tokens[train_size + val_size:]
+ចាថេសអេស្កេក.pad_token = "<ɽ͑ʃ'ſ͕ȷƽ>"
+ចាថេសអេស្កេក.bos_token = "<j͑ʃı],>"
+ចាថេសអេស្កេក.eos_token = "<ſ̀ȷſɭſɭ>"
+ចាថេសអេស្កេក.unk_token = "<ſɭſɭſ͕ȷ>"
+ចាថេសអេស្កេក.space_token = "<ſɭɘſ͕ȷƽ>"
 
-# Initialize the custom tokenizer with the loaded vocabulary
-tokenizer = GPT2Tokenizer(vocab_file="j͑ʃɹ ſȷɜⅎ ſȷᴜͷ̗.json", merges_file="ſɭɔʞ ſɟɹƽ ꞁȷ̀ᴜꞇ.txt")
+# j͑ʃƽᴜ ſɭɔʞ ɽ͑ʃ'w j͑ʃ'ᴜ
+def ស្កាកេភ(ចាត្សារា):
+    # ſןɜ ᶅſwƽ ſɟᴜ ſᶘᴜ ɽ͑ʃ'ᴜ j͑ʃᴜ ſɭɔʞ
+    ង៏កិហ្តាកានី = {v: k for k, v in ភាលកេភអៃ.items()}
+    # j͑ʃƽᴜ ſɭɔʞ
+    ស្កាកេភអៃ១សៃអេស្កេភ = [ង៏កិហ្តាកានី[រឺថា] for រឺថា in ចាត្សារា]
+    # ſɟɹƽ j͑ʃᴜƣ̋ ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ
+    ស្កាកេភអៃអុជិពេវា = ' '.join(ស្កាកេភអៃ១សៃអេស្កេភ)
+    return ស្កាកេភអៃអុជិពេវា
 
-tokenizer.pad_token = "<ɽ͑ʃ'ſ͕ȷƽ>"
-tokenizer.bos_token = "<j͑ʃı],>"
-tokenizer.eos_token = "<ſ̀ȷſɭſɭ>"
-tokenizer.unk_token = "<ſɭſɭſ͕ȷ>"
-tokenizer.space_token = "<ſɭɘſ͕ȷƽ>"
+ចាថេសអេស្កេក.save_pretrained("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ")
 
-def get_vocab():
-    return all_custom_tokens
+# ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ
+def អុលិមី():
+    print("|ɽ͑ʃ'w j͑ʃ'ᴜ j͑ʃᴜꞇ ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ|", រឺថា)
+    ថារឺថានី = ចាថេសអេស្កេក.encode(រឺថា, add_special_tokens=True, return_tensors='pt')
+    ថារឺថាសៃចាត្សារា = ថារឺថានី.tolist()[0]
+    សកាកេភអៃចាត្សារា = ស្កាកេភ(ថារឺថាសៃចាត្សារា)
+    print("|j͑ʃƽᴜ ſɭɔʞ ꞁȷ̀ᴜꞇ ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ|", សកាកេភអៃចាត្សារា)
 
-# Define a function to decode token IDs using the custom vocabulary
-def decode_token_ids(encoded_list):
-    # Create a reverse mapping of token IDs to tokens in your custom vocabulary
-    reverse_vocab = {v: k for k, v in custom_vocab.items()}
-    # Use the reverse mapping to convert token IDs back to tokens
-    decoded_tokens = [reverse_vocab[token_id] for token_id in encoded_list]
-    # Join the tokens together to form the decoded text
-    decoded_text = ' '.join(decoded_tokens)
-    # Print the decoded text
-    
-    return decoded_text
-
-# Save the custom tokenizer to a directory
-tokenizer.save_pretrained("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ")
-
-# Print the results
-print("Tokenized Text:", all_custom_tokens)
-
-# Test
-test_text = all_custom_tokens
-encoded = tokenizer.encode(test_text, add_special_tokens=True, return_tensors='pt')
-
-# Convert the encoded tensor to a list of token IDs
-encoded_list = encoded.tolist()[0]
-decoded_text = decode_token_ids(encoded_list)
-print("Decoded Text:", decoded_text)
+# អុលិមី()
