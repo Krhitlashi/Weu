@@ -3,7 +3,7 @@ from transformers import GPT2Tokenizer
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 
-ចាកាពអុភាល = 256 # ſɟᴜ ſɭᴜɘ ꞁȷ̀ɜ ſȷᴜͷ̗
+ចាកាពអុភាល = 512 # ſɟᴜ ſɭᴜɘ ꞁȷ̀ɜ ſȷᴜͷ̗
 ផ៏នអេត្សារា = 1e-4 # ʃэc̗ ꞁȷ̀ɔ ſᶘᴜ ɽ͑ʃ'ᴜ
 ហាសិក៏ហ៏ = 16 # j͑ʃɹ ſɭэ ֭ſɭэ
 កេភពាល៏ = 595 # j͑ʃп́ɔ ſɭɔʞ ſןᴜ j͐ʃэ
