@@ -1,35 +1,42 @@
 {
   "_name_or_path": "\u1d85\u017f\u0254\u214e.pt",
-  "activation_function": "gelu_new",
-  "attn_pdrop": 0.1,
-  "bos_token_id": 592,
-  "embd_pdrop": 0.1,
-  "eos_token_id": 593,
-  "gradient_checkpointing": false,
-  "hidden_act": "gelu",
-  "initializer_range": 0.02,
-  "intermediate_size": 3072,
-  "layer_norm_eps": 1e-05,
-  "layer_norm_epsilon": 1e-05,
+
   "model_type": "gpt2",
+  "transformers_version": "4.39.2",
+  "use_cache": true,
   "n_embd": 768,
   "n_head": 12,
   "n_inner": null,
   "n_layer": 12,
-  "n_positions": 512,
-  "reorder_and_upcast_attn": false,
+
+  "type_vocab_size": 1,
+  "vocab_size": 594,
+  "pad_token_id": 590,
+  "bos_token_id": 591,
+  "eos_token_id": 592,
+  "unk_token_id": 593,
+
+  "attn_pdrop": 0.1,
+  "embd_pdrop": 0.1,
   "resid_pdrop": 0.1,
   "scale_attn_by_inverse_layer_idx": false,
   "scale_attn_weights": true,
+
+  "layer_norm_eps": 1e-05,
+  "layer_norm_epsilon": 1e-05,
+
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+
+  "n_positions": 512,
+  "reorder_and_upcast_attn": false,
+
+  "activation_function": "gelu_new",
+  "hidden_act": "gelu",
+  "gradient_checkpointing": false,
   "summary_activation": null,
   "summary_first_dropout": 0.1,
-  "summary_proj_to_labels": true,
-  "summary_type": "cls_index",
   "summary_use_proj": true,
-  "transformers_version": "4.32.1",
-  "type_vocab_size": 1,
-  "use_cache": true,
-  "vocab_size": 595,
-  "pad_token_id": 591,
-  "unk_token_id": 594
+  "summary_proj_to_labels": true,
+  "summary_type": "cls_index"
 }

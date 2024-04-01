@@ -1,18 +1,18 @@
 import torch
-from transformers import GPT2Tokenizer
+from transformers import AutoTokenizer
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 
 ចាកាពអុភាល = 512 # ſɟᴜ ſɭᴜɘ ꞁȷ̀ɜ ſȷᴜͷ̗
 ផ៏នអេត្សារា = 1e-4 # ʃэc̗ ꞁȷ̀ɔ ſᶘᴜ ɽ͑ʃ'ᴜ
 ហាសិក៏ហ៏ = 16 # j͑ʃɹ ſɭэ ֭ſɭэ
-កេភពាល៏ = 595 # j͑ʃп́ɔ ſɭɔʞ ſןᴜ j͐ʃэ
+កេភពាល៏ = 594 # j͑ʃп́ɔ ſɭɔʞ ſןᴜ j͐ʃэ
 ចាកអុភាល = 512  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗
 ចាកអុភាលត្លាកាក = 512  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗ ſ̀ȷᴜ ſɭᴜƽ ꞁȷ̀ᴜꞇ
 តុម៏នីត្លា = 2  # ɭʃɜ ŋᷠэ }ʃꞇ ſ̀ȷᴜ j͑ʃᴜꞇ
 
 # ſɭʞɹ ſɟᴜ j͑ʃ'ɔɔ˞ ꞁȷ̀ɔ j͑ʃƽɔƽ
-ចាថេសអេស្កេក = GPT2Tokenizer.from_pretrained("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ")
+ចាថេសអេស្កេក = AutoTokenizer.from_pretrained("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ")
 អារាចាថុពិ = [
     "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ.txt",
     "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ꞁȷ̀ꞇ }ʃᴜƽ ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ.txt",

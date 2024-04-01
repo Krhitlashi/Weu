@@ -1,5 +1,3 @@
-import json
-import torch
 from transformers import GPT2LMHeadModel, GPT2Tokenizer, GPT2Config
 import importlib.util
 
@@ -39,7 +37,7 @@ import importlib.util
 # j͑ʃƽᴜ ſɭɔʞ ꞁȷ̀ᴜ }ʃꞇ
 def ថេខាវេកិភ(អុជិភេវា):
     # j͑ʃ'ᴜ ɽ͑ʃ'w j͑ʃ'ᴜ
-    ថារឺថានី = ចាថេសអេស្កេក.encode(អុជិភេវា, add_special_tokens=True, return_tensors='pt')
+    ថារឺថានី = ចថចាថេសអេស្កេក.ថារឺថា(អុជិភេវា, ង៏កិ១សៃអេស្កេក=True, ង៏កិហាតេ='֭ſɭwʞ')
     ថារឺថានី = ថារឺថានី.clone().detach()
 
     # ſɭʞɹ ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ
