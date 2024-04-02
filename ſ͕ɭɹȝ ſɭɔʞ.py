@@ -1,6 +1,6 @@
 import json
 from collections import defaultdict
-from nltk.tokenize import word_tokenize
+import re
 
 # Function to build vocabulary from input អុជិពេវាs
 def ក្ភិភាលកេភអៃ(អារអុជិពេវា):
@@ -11,6 +11,10 @@ def ក្ភិភាលកេភអៃ(អារអុជិពេវា):
     for អារាង in អារអុជិពេវា:
         with open(អារាង, "r", encoding="utf-8") as file:
             អុជិពេវា = file.read()
+            អុជិពេវា = re.sub(r"\|", " | ", អុជិពេវា)
+            អុជិពេវា = re.sub(r"\「", " 「 ", អុជិពេវា)
+            អុជិពេវា = re.sub(r"\」", " 」 ", អុជិពេវា)
+            អុជិពេវា = re.sub(r"⸙", " ⸙ ", អុជិពេវា)
             # Split the អុជិពេវា into ហាកេភ based on spaces
             ហាកេភ = អុជិពេវា.split()
             # Update the vocabulary counts for each កេភ
@@ -38,12 +42,12 @@ def ក្ភិភាលកេភអៃ(អារអុជិពេវា):
 
 # Reserve the top four slots for special tokens
 ង៏កិកេភ = ["<ɽ͑ʃ'ſ͕ȷƽ>", "<j͑ʃı],>", "<ſ̀ȷſɭſɭ>", "<ſɭſɭſ͕ȷ>", "<ſɭɘſ͕ȷƽ>"]
-for idx, special_token in enumerate(ង៏កិកេភ):
-    ភាលកេភអៃ[special_token] = idx  # Assign the index as the ID for special tokens
+for idx, ង៏កិ១សៃអេស្កេក in enumerate(ង៏កិកេភ):
+    ភាលកេភអៃ[ង៏កិ១សៃអេស្កេក] = idx  # Assign the index as the ID for special tokens
 
 # Assign incremental IDs to tokens
-for idx, token in enumerate(ភាលកេភអៃ.keys()):
-    ភាលកេភអៃ[token] = idx
+for idx, ជាងាសៃអេស្កេក in enumerate(ភាលកេភអៃ.keys()):
+    ភាលកេភអៃ[ជាងាសៃអេស្កេក] = idx
 
 # Save the vocabulary to a JSON file
 with open("j͑ʃɹ ſȷɜⅎ ſȷᴜͷ̗.json", "w", encoding="utf-8") as vocab_file:

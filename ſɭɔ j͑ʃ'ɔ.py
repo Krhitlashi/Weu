@@ -1,14 +1,14 @@
-from transformers import GPT2LMHeadModel, GPT2Tokenizer, GPT2Config
+from transformers import PegasusForCausalLM, PegasusConfig, AutoTokenizer
 import importlib.util
 
 # ꞁȷ̀ᴜ ſ̀ȷɔ
 អារាវេំ = "ᶅſɔⅎ.pt"
-កឺត្សុ = GPT2Config.from_json_file("ᶅſɔⅎ.json")
-វេំ = GPT2LMHeadModel.from_pretrained(អារាវេំ, config=កឺត្សុ)
+កឺត្សុ = PegasusConfig.from_json_file("ᶅſɔⅎ.json")
+វេំ = PegasusForCausalLM.from_pretrained(អារាវេំ, config=កឺត្សុ)
 
 # ſɭɹ ɽ͑ʃ'ɔ ſɟᴜ j͑ʃ'ɔɔ˞ ꞁȷ̀ɔ j͑ʃƽɔƽ
 អារាចាថេសអេស្កេក = "ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ.py"
-ចាថេសអេស្កេក = GPT2Tokenizer.from_pretrained("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ")
+ចាថេសអេស្កេក = AutoTokenizer.from_pretrained("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ")
 ចាថុពិ = importlib.util.spec_from_file_location("custom_module", អារាចាថេសអេស្កេក)
 ចថចាថេសអេស្កេក = importlib.util.module_from_spec(ចាថុពិ)
 ចាថុពិ.loader.exec_module(ចថចាថេសអេស្កេក)
@@ -26,10 +26,10 @@ import importlib.util
 
 # ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ
 ហាសាភេនី = [
-    "ꞁȷ̀ɔ ſᶘᴜ ɽ͑ʃ'ᴜ ɭʃꞇȝ ſɟɔƴ ſɭɔƴ",
-    "ɭʃᴜ ꞁȷ̀ᴜ ɽ͑ʃ'ᴜȝ ſɭɔƴ",
-    "ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ",
-    "}ʃɔ ֭ſɭᴜ ı],ɹ ɭʃᴜȝ"
+    "ꞁȷ̀ɔ ſᶘᴜ ɽ͑ʃ'ᴜ ɭʃꞇȝ ſɟɔƴ ſɭɔƴ ⸾",
+    "ɭʃᴜ ꞁȷ̀ᴜ ɽ͑ʃ'ᴜȝ ſɭɔƴ ⸾",
+    "ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ ⟅",
+    "}ʃɔ ֭ſɭᴜ ı],ɹ ɭʃᴜȝ ⟅"
     ]
 
 ចាត្សារា = []
@@ -43,12 +43,12 @@ def ថេខាវេកិភ(អុជិភេវា):
     # ſɭʞɹ ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ
     ត្សេំនី = វេំ.generate(
         ថារឺថានី,
-        max_length=200,
+        max_length=160,
         num_return_sequences=1,
         no_repeat_ngram_size=2,
         do_sample=True,
         top_p=0.8,
-        temperature=0.2
+        temperature=0.8
     )
 
     # j͑ʃƽᴜ ſɭɔʞ
@@ -83,9 +83,7 @@ while True:
     print("j͑ʃɹ ʃᴜ }ʃᴜ ſɭɔʞ ꞁȷ̀ɔƽ ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ |ꞁȷ̀ᴜ ŋᷠɹ ꞁȷ̀ɔƽ j͑ʃɹ ʃᴜ }ʃᴜ ⸙ ⸙|")
     ល៏មារ = input()
     
-    if ល៏មារ.lower() == ' ':
-        break
-    if ល៏មារ.lower() == '':
+    if ល៏មារ.lower() == ' ' | ល៏មារ.lower() == '':
         break
     
     ត្លាកាកល៏មារ = ថេខាវេកិភ(ល៏មារ)

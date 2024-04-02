@@ -1,12 +1,13 @@
 import torch
-from transformers import AutoTokenizer
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
+import torch.nn.functional as F
+from transformers import AutoTokenizer
 
 ចាកាពអុភាល = 512 # ſɟᴜ ſɭᴜɘ ꞁȷ̀ɜ ſȷᴜͷ̗
 ផ៏នអេត្សារា = 1e-4 # ʃэc̗ ꞁȷ̀ɔ ſᶘᴜ ɽ͑ʃ'ᴜ
-ហាសិក៏ហ៏ = 16 # j͑ʃɹ ſɭэ ֭ſɭэ
-កេភពាល៏ = 594 # j͑ʃп́ɔ ſɭɔʞ ſןᴜ j͐ʃэ
+ហាសិក៏ហ៏ = 48 # j͑ʃɹ ſɭэ ֭ſɭэ
+កេភពាល៏ = 559 # j͑ʃп́ɔ ſɭɔʞ ſןᴜ j͐ʃэ
 ចាកអុភាល = 512  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗
 ចាកអុភាលត្លាកាក = 512  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗ ſ̀ȷᴜ ſɭᴜƽ ꞁȷ̀ᴜꞇ
 តុម៏នីត្លា = 2  # ɭʃɜ ŋᷠэ }ʃꞇ ſ̀ȷᴜ j͑ʃᴜꞇ
@@ -88,6 +89,20 @@ class វេំ(nn.Module):
         # ſᶘɔⅎ }ʃꞇ j͑ʃᴜꞇ ſ̀ȷᴜ 
         ត្សេំនី = self.linear(ត្សេំនី)
         return ត្សេំនី
+    
+    def generate(self, រឺថា, max_length=100, temperature=1.0):
+        កុផុយ = None
+        ក្ភិសៃ១សៃអេស្កេក = []
+ 
+        for _ in range(max_length):
+            អុចាល, កុផុយ = self.forward(រឺថា, កុផុយ)
+            អុចាល /= temperature
+            ហុវអុចាល = F.softmax(អុចាល[:, -1], dim=-1)
+            ហុវេសៃ១សៃអេស្កេក = torch.multinomial(ហុវអុចាល, num_samples=1)
+            ក្ភិសៃ១សៃអេស្កេក.append(ហុវេសៃ១សៃអេស្កេក.item())
+            រឺថា = torch.cat([រឺថា, ហុវេសៃ១សៃអេស្កេក.unsqueeze(1)], dim=-1)
+
+        return ក្ភិសៃ១សៃអេស្កេក
 
 # ſɭʞɹ ᶅſɔⅎ
 វេំ = វេំ(កេភពាល៏, ចាកអុភាល, ចាកអុភាលត្លាកាក, តុម៏នីត្លា)
