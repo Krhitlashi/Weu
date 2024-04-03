@@ -2,12 +2,10 @@ import json
 from collections import defaultdict
 import re
 
-# Function to build vocabulary from input អុជិពេវាs
+# ſɭʞɹ ſȷᴜͷ̗ ſɭɔʞ ꞁȷ̀ᴜꞇ
 def ក្ភិភាលកេភអៃ(អារអុជិពេវា):
-    # Initialize an empty vocabulary
     ភាលកេភអៃ = defaultdict(int)
-    
-    # Process each អុជិពេវា file
+
     for អារាង in អារអុជិពេវា:
         with open(អារាង, "r", encoding="utf-8") as file:
             អុជិពេវា = file.read()
@@ -15,18 +13,16 @@ def ក្ភិភាលកេភអៃ(អារអុជិពេវា):
             អុជិពេវា = re.sub(r"\「", " 「 ", អុជិពេវា)
             អុជិពេវា = re.sub(r"\」", " 」 ", អុជិពេវា)
             អុជិពេវា = re.sub(r"⸙", " ⸙ ", អុជិពេវា)
-            # Split the អុជិពេវា into ហាកេភ based on spaces
             ហាកេភ = អុជិពេវា.split()
-            # Update the vocabulary counts for each កេភ
             for កេភ in ហាកេភ:
                 ភាលកេភអៃ[កេភ] += 1
     
-    # Sort the vocabulary by frequency in descending order
-    ចាត្សារា = {កេភ: freq for កេភ, freq in sorted(ភាលកេភអៃ.items(), key=lambda item: item[1], reverse=True)}
+    #  ֭ſɭƨᴜ ſɭᴜ j͑ʃɔ ſȷᴜͷ̗ 
+    ចាត្សារា = {កេភ: តុម៏ for កេភ, តុម៏ in sorted(ភាលកេភអៃ.items(), key=lambda item: item[1], reverse=True)}
     
     return ចាត្សារា
 
-# Example អុជិពេវា file paths
+# ꞁȷ̀ᴜ ɽ͑ʃ'ᴜȝ j͑ʃɔƣ̋ ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ
 អារអុជិពេវា = [
     "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ.txt",
     "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ꞁȷ̀ꞇ }ʃᴜƽ ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ.txt",
@@ -39,20 +35,18 @@ def ក្ភិភាលកេភអៃ(អារអុជិពេវា):
     "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\j͑ʃƽᴜ ſɭɔʞ\ꞁȷ̀ꞇ }ʃᴜƽ j͑ʃп́ꞇ ſɭɔƴ.txt",
 ]
 
-# Build vocabulary from input អុជិពេវាs
 ភាលកេភអៃ = ក្ភិភាលកេភអៃ(អារអុជិពេវា)
 
-# Reserve the top four slots for special tokens
+# ſ͕ɭэ ſɭɹ j͐ʃ ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ
 ង៏កិកេភ = ["<ɽ͑ʃ'ſ͕ȷƽ>", "<j͑ʃı],>", "<ſ̀ȷſɭſɭ>", "<ſɭſɭſ͕ȷ>", "<ſɭɘſ͕ȷƽ>"]
 for idx, ង៏កិ១សៃអេស្កេក in enumerate(ង៏កិកេភ):
-    ភាលកេភអៃ[ង៏កិ១សៃអេស្កេក] = idx  # Assign the index as the ID for special tokens
+    ភាលកេភអៃ[ង៏កិ១សៃអេស្កេក] = idx
 
-# Assign incremental IDs to tokens
 for idx, ជាងាសៃអេស្កេក in enumerate(ភាលកេភអៃ.keys()):
     ភាលកេភអៃ[ជាងាសៃអេស្កេក] = idx
 
-# Save the vocabulary to a JSON file
-with open("j͑ʃɹ ſȷɜⅎ ſȷᴜͷ̗.json", "w", encoding="utf-8") as vocab_file:
-    json.dump(ភាលកេភអៃ, vocab_file, ensure_ascii=False, indent=4)
+# ſɭʞɹ
+with open("j͑ʃɹ ſȷɜⅎ ſȷᴜͷ̗.json", "w", encoding="utf-8") as ចថភាល:
+    json.dump(ភាលកេភអៃ, ចថភាល, ensure_ascii=False, indent=4)
 
 print("ſ̀ȷᴜ ſɭᴜƽ ⸙j͑ʃɹ ſȷɜⅎ ſȷᴜͷ̗.json⸙")
