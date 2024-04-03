@@ -1,6 +1,6 @@
 import json
 import torch
-from transformers import GPT2Tokenizer
+from transformers import GPT2Tokenizer as ត្សីងអៃចថស្ក
 
 # ſɭʞɹ ſɟᴜ j͑ʃ'ɔɔ˞ ꞁȷ̀ɔ j͑ʃƽɔƽ
 class ចាថេសអេស្កេក:
@@ -74,7 +74,7 @@ for ចាថុពិ in អារាចាថុពិ:
     រឺថា.extend(ជាងាសៃអេស្កេក)
 
 # j͑ʃᴜ ı],ɔ ſɟᴜ j͑ʃ'ɔɔ˞ ꞁȷ̀ɔ j͑ʃƽɔƽ
-ចាថេសអេស្កេក = GPT2Tokenizer(vocab_file="j͑ʃɹ ſȷɜⅎ ſȷᴜͷ̗.json", merges_file="ſɭɔʞ ſɟɹƽ ꞁȷ̀ᴜꞇ.txt")
+ចាថេសអេស្កេក = ត្សីងអៃចថស្ក(vocab_file="j͑ʃɹ ſȷɜⅎ ſȷᴜͷ̗.json", merges_file="ſɭɔʞ ſɟɹƽ ꞁȷ̀ᴜꞇ.txt")
 
 ចាថេសអេស្កេក.pad_token = "<ɽ͑ʃ'ſ͕ȷƽ>"
 ចាថេសអេស្កេក.bos_token = "<j͑ʃı],>"

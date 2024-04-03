@@ -1,17 +1,17 @@
 import pyperclip as ចាចឺតា
-import importlib.util
-from transformers import PegasusForCausalLM, PegasusConfig, AutoTokenizer
+import importlib.util as ចាថភ
+from transformers import PegasusForCausalLM as ត្សីងអៃវេំ, PegasusConfig as កាម្តាកឺត្សុ, AutoTokenizer as ត្សីងអៃចថស្ក
 
 # ꞁȷ̀ᴜ ſ̀ȷɔ
 អារាវេំ = "ᶅſɔⅎ.pt"
-កឺត្សុ = PegasusConfig.from_json_file("ᶅſɔⅎ.json")
-វេំ = PegasusForCausalLM.from_pretrained(អារាវេំ, config=កឺត្សុ)
+កឺត្សុ = កាម្តាកឺត្សុ.from_json_file("ᶅſɔⅎ.json")
+វេំ = ត្សីងអៃវេំ.from_pretrained(អារាវេំ, config=កឺត្សុ)
 
 # ſɭɹ ɽ͑ʃ'ɔ ſɟᴜ j͑ʃ'ɔɔ˞ ꞁȷ̀ɔ j͑ʃƽɔƽ
 អារាចាថេសអេស្កេក = "ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ.py"
-ចាថេសអេស្កេក = AutoTokenizer.from_pretrained("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ")
-ចាថុពិ = importlib.util.spec_from_file_location("custom_module", អារាចាថេសអេស្កេក)
-ចថចាថេសអេស្កេក = importlib.util.module_from_spec(ចាថុពិ)
+ចាថេសអេស្កេក = ត្សីងអៃចថស្ក.from_pretrained("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ")
+ចាថុពិ = ចាថភ.util.spec_from_file_location("custom_module", អារាចាថេសអេស្កេក)
+ចថចាថេសអេស្កេក = ចាថភ.util.module_from_spec(ចាថុពិ)
 ចាថុពិ.loader.exec_module(ចថចាថេសអេស្កេក)
 
 # ſ͕ɭэ ſɭɹ j͐ʃ ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ
