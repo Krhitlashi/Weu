@@ -1,5 +1,6 @@
-from transformers import PegasusForCausalLM, PegasusConfig, AutoTokenizer
+import pyperclip as ចាចឺតា
 import importlib.util
+from transformers import PegasusForCausalLM, PegasusConfig, AutoTokenizer
 
 # ꞁȷ̀ᴜ ſ̀ȷɔ
 អារាវេំ = "ᶅſɔⅎ.pt"
@@ -79,17 +80,22 @@ for j, ស្កាកេភអៃអុជិពេវា in enumerate(ស្�
     print("")
 
 # ſɭʞɹ }ʃꞇ
+ត្លាកាកល៏មារ = ស្កាកេភអៃអុជិពេវា
 while True:
     print("j͑ʃɹ ʃᴜ }ʃᴜ ſɭɔʞ ꞁȷ̀ɔƽ ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ |ꞁȷ̀ᴜ ŋᷠɹ ꞁȷ̀ɔƽ j͑ʃɹ ʃᴜ }ʃᴜ ⸙ ⸙|")
     ល៏មារ = input()
     
-    if ល៏មារ.lower() == ' ' | ល៏មារ.lower() == '':
+    if ល៏មារ.lower() == ' ' or ល៏មារ.lower() == '':
         break
+
+    elif ល៏មារ == 'ſɟ':
+        ចាចឺតា.copy(ត្លាកាកល៏មារ)
     
-    ត្លាកាកល៏មារ = ថេខាវេកិភ(ល៏មារ)
-    for ជាងាសៃអេស្កេក in ង៏កិ១សៃអេស្កេក:
-        ត្លាកាកល៏មារ = ស្កាកេភអៃអុជិពេវា.replace(ជាងាសៃអេស្កេក, "")
-    print("")
-    print("|ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ|")
-    print(ត្លាកាកល៏មារ)
-    print("")
+    else:
+        ត្លាកាកល៏មារ = ថេខាវេកិភ(ល៏មារ)
+        for ជាងាសៃអេស្កេក in ង៏កិ១សៃអេស្កេក:
+            ត្លាកាកល៏មារ = ត្លាកាកល៏មារ.replace(ជាងាសៃអេស្កេក, "")
+        print("")
+        print("|ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ|")
+        print(ត្លាកាកល៏មារ)
+        print("")

@@ -1,6 +1,5 @@
 import json
 import torch
-import re
 from transformers import GPT2Tokenizer
 
 # ſɭʞɹ ſɟᴜ j͑ʃ'ɔɔ˞ ꞁȷ̀ɔ j͑ʃƽɔƽ
@@ -108,8 +107,6 @@ def ថារឺថា(ចាត្សារា, ង៏កិ១សៃអេស�
         for កេភ in ហាកេភ:
             if កេភ in ភាលកេភអៃ:
                 កេភចាត្សារា.append(ភាលកេភអៃ[កេភ])
-            else:
-                raise ValueError("ſ͕ȷɜ ſɭɹ ɽ͑ʃ'ɔ ſɭɔʞ ⸙'{កេភ}'⸙ ⟅")
         ចាត្សារា = កេភចាត្សារា
 
     if ង៏កិ១សៃអេស្កេក:
