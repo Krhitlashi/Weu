@@ -10,11 +10,11 @@
   "n_layer": 12,
 
   "type_vocab_size": 1,
-  "vocab_size": 570,
-  "pad_token_id": 566,
-  "bos_token_id": 567,
-  "eos_token_id": 568,
-  "unk_token_id": 569,
+  "vocab_size": 572,
+  "pad_token_id": 568,
+  "bos_token_id": 569,
+  "eos_token_id": 570,
+  "unk_token_id": 571,
 
   "attn_pdrop": 0.1,
   "embd_pdrop": 0.1,
