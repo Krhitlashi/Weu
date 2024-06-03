@@ -46,7 +46,7 @@ def ថេខាវេកិភ(អុជិភេវា):
         ថារឺថានី,
         max_length=160,
         num_return_sequences=1,
-        no_repeat_ngram_size=2,
+        no_repeat_ngram_size=1,
         do_sample=True,
         top_p=0.8,
         temperature=0.8
