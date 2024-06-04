@@ -50,7 +50,7 @@ def ថេខាវេកិភ(អុជិភេវា):
         do_sample=True,
         top_p=0.625,
         top_k=1,
-        temperature=0.2
+        temperature=0.325
     )
 
     # j͑ʃƽᴜ ſɭɔʞ

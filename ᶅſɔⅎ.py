@@ -35,7 +35,9 @@ print(ចាថេសអេស្កេក.eos_token_id)
 # j͑ʃ'ɔ ſȷᴜͷ̗
 for ចាថុពិ in អារាចាថុពិ:
     with open(ចាថុពិ, "r", encoding="utf-8") as file:
-        អុជិពេវា = file.read()
+        អុជិពេវា = file.readlines()
+    អុជិពេវា = ["<j͑ʃı],> " + line + " <ſ̀ȷſɭſɭ>" for line in អុជិពេវា]
+    អុជិពេវា = ' '.join(អុជិពេវា)
     ជាងាសៃអេស្កេក = ចាថេសអេស្កេក(អុជិពេវា, padding="max_length", truncation=False, max_length=2496)
     រឺថា.extend(ជាងាសៃអេស្កេក["input_ids"])
 
