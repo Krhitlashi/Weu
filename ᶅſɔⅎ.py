@@ -1,8 +1,12 @@
+import os
 import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 import torch.nn.functional as F
 from transformers import AutoTokenizer as ត្សីងអៃចថស្ក
+
+from datasets import load_dataset
+from trl import SFTTrainer
 
 ចាកាពអុភាល = 512 # ſɟᴜ ſɭᴜɘ ꞁȷ̀ɜ ſȷᴜͷ̗
 ផ៏នអេត្សារា = 1e-4 # ʃэc̗ ꞁȷ̀ɔ ſᶘᴜ ɽ͑ʃ'ᴜ
@@ -14,6 +18,7 @@ from transformers import AutoTokenizer as ត្សីងអៃចថស្ក
 
 # ſɭʞɹ ſɟᴜ j͑ʃ'ɔɔ˞ ꞁȷ̀ɔ j͑ʃƽɔƽ
 ចាថេសអេស្កេក = ត្សីងអៃចថស្ក.from_pretrained("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ")
+print(ចាថេសអេស្កេក.eos_token_id)
 អារាចាថុពិ = [
     "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ.txt",
     "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ꞁȷ̀ꞇ }ʃᴜƽ ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ.txt",
@@ -148,7 +153,21 @@ for សិក៏ហ៏ in range(ហាសិក៏ហ៏):
         ក្មអាកីសិអុត្ល៏នី = សិអុត្ល៏នី
     elif សិអុត្ល៏នី < ក្មអាកីសិអុត្ល៏នី:
         ក្មអាកីសិអុត្ល៏នី = សិអុត្ល៏នី
-        torch.save(វេំ.state_dict(), "ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ j͑ʃᴜꞇ ᶅſɔⅎ.pt")
+        torch.save(វេំ.state_dict(), "oliimisaiweu.pt") # ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ j͑ʃᴜꞇ ᶅſɔⅎ.pt
+
+os.remove("oliimisaiweu.pt")
+
+# ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ
+dataset = load_dataset('json', data_files='output.json')
+trainer = SFTTrainer(
+        model=វេំ,
+        train_dataset=dataset,
+        dataset_text_field="text",
+        max_seq_length=512,
+        tokenizer=ចាថេសអេស្កេក,
+        packing=False
+    )
+trainer.train
 
 # j͑ʃ'ɔ ſ̀ȷᴜȝ
 អារាវេំ = "ᶅſɔⅎ.pt"
