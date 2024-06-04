@@ -48,9 +48,9 @@ def ថេខាវេកិភ(អុជិភេវា):
         num_return_sequences=1,
         no_repeat_ngram_size=1,
         do_sample=True,
-        top_p=8,
-        top_k=8,
-        temperature=0.4
+        top_p=0.75,
+        top_k=1,
+        temperature=0.2
     )
 
     # j͑ʃƽᴜ ſɭɔʞ

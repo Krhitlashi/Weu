@@ -5,8 +5,9 @@ from torch.utils.data import Dataset, DataLoader
 import torch.nn.functional as F
 from transformers import AutoTokenizer as ត្សីងអៃចថស្ក
 
+# j͑ʃɔ ſȷэⅎ
 from datasets import load_dataset
-from trl import SFTTrainer
+from transformers import Trainer
 
 ចាកាពអុភាល = 512 # ſɟᴜ ſɭᴜɘ ꞁȷ̀ɜ ſȷᴜͷ̗
 ផ៏នអេត្សារា = 1e-4 # ʃэc̗ ꞁȷ̀ɔ ſᶘᴜ ɽ͑ʃ'ᴜ
@@ -158,17 +159,14 @@ for សិក៏ហ៏ in range(ហាសិក៏ហ៏):
 os.remove("oliimisaiweu.pt")
 
 # ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ
-dataset = load_dataset('json', data_files='output.json')
-trainer = SFTTrainer(
+ចាហាត្សិយុ = Trainer(
         model=វេំ,
-        train_dataset=dataset,
-        dataset_text_field="text",
-        max_seq_length=512,
-        tokenizer=ចាថេសអេស្កេក,
-        packing=False
+        train_dataset=ថុពិថេរអេត្សារា,
+        tokenizer=ចាថេសអេស្កេក
     )
-trainer.train
+ចាហាត្សិយុ.train
 
 # j͑ʃ'ɔ ſ̀ȷᴜȝ
-អារាវេំ = "ᶅſɔⅎ.pt"
+អារាវេំ = "weu.pt"
 torch.save(វេំ.state_dict(), អារាវេំ)
+os.rename(អារាវេំ, "ᶅſɔⅎ.pt")
