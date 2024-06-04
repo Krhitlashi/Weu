@@ -7,9 +7,9 @@ from transformers import AutoTokenizer as ត្សីងអៃចថស្ក
 from transformers import DataCollatorWithPadding, TrainingArguments, Trainer
 
 ចាកាពអុភាល = 512 # ſɟᴜ ſɭᴜɘ ꞁȷ̀ɜ ſȷᴜͷ̗
-ផ៏នអេត្សារា = 1e-4 # ʃэc̗ ꞁȷ̀ɔ ſᶘᴜ ɽ͑ʃ'ᴜ
+ផ៏នអេត្សារា = 5e-6 # ʃэc̗ ꞁȷ̀ɔ ſᶘᴜ ɽ͑ʃ'ᴜ
 ហាសិក៏ហ៏ = 24 # j͑ʃɹ ſɭэ ֭ſɭэ
-កេភពាល៏ = 592 # j͑ʃп́ɔ ſɭɔʞ ſןᴜ j͐ʃэ
+កេភពាល៏ = 598 # j͑ʃп́ɔ ſɭɔʞ ſןᴜ j͐ʃэ
 ចាកអុភាល = 512  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗
 ចាកអុភាលត្លាកាក = 512  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗ ſ̀ȷᴜ ſɭᴜƽ ꞁȷ̀ᴜꞇ
 តុម៏នីត្លា = 4  # ɭʃɜ ŋᷠэ }ʃꞇ ſ̀ȷᴜ j͑ʃᴜꞇ
@@ -165,10 +165,10 @@ os.remove("oliimisaiweu.pt")
 កឹត្សុហាត្សិយុ = TrainingArguments(
     output_dir='./j͐ʃэ ֭ſɭᴜ ſᶘɹ ɭl̀ɜ',
     learning_rate=ផ៏នអេត្សារា,
-    per_device_train_batch_size=24,
-    per_device_eval_batch_size=24,
+    per_device_train_batch_size=32,
+    per_device_eval_batch_size=32,
     num_train_epochs=ហាសិក៏ហ៏,
-    weight_decay=0.01,
+    weight_decay=1e-2
 )
 ចាហាត្សិយុ = Trainer(
         model=វេំ,

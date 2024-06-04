@@ -29,7 +29,7 @@ from transformers import PegasusForCausalLM as ត្សីងអៃវេំ, P
 ហាសាភេនី = [
     "ꞁȷ̀ɔ ſᶘᴜ ɽ͑ʃ'ᴜ ɭʃꞇȝ ſɟɔƴ ſɭɔƴ ⸾",
     "ɭʃᴜ ꞁȷ̀ᴜ ɽ͑ʃ'ᴜȝ ſɭɔƴ ⸾",
-    "ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ ⟅",
+    "ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ",
     "}ʃɔ ֭ſɭᴜ ı],ɹ ɭʃᴜȝ ⟅"
     ]
 
@@ -50,7 +50,7 @@ def ថេខាវេកិភ(អុជិភេវា):
         do_sample=True,
         top_p=0.625,
         top_k=1,
-        temperature=0.325
+        temperature=0.5
     )
 
     # j͑ʃƽᴜ ſɭɔʞ

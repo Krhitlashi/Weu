@@ -47,7 +47,7 @@ for idx, ជាងាសៃអេស្កេក in enumerate(ភាលកេភ
     ភាលកេភអៃ[ជាងាសៃអេស្កេក] = idx
 
 # ſɭʞɹ
-with open("j͑ʃɹ ſȷɜⅎ ſȷᴜͷ̗.json", "w", encoding="utf-8") as ចថភាល:
+with open("ſȷᴜͷ̗ ſɭɔʞ ꞁȷ̀ᴜꞇ.json", "w", encoding="utf-8") as ចថភាល:
     json.dump(ភាលកេភអៃ, ចថភាល, ensure_ascii=False, indent=4)
 
-print("ſ̀ȷᴜ ſɭᴜƽ ⸙j͑ʃɹ ſȷɜⅎ ſȷᴜͷ̗.json⸙")
+print("ſ̀ȷᴜ ſɭᴜƽ ⸙ſȷᴜͷ̗ ſɭɔʞ ꞁȷ̀ᴜꞇ.json⸙")
