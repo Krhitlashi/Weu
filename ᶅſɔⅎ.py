@@ -4,15 +4,12 @@ import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 import torch.nn.functional as F
 from transformers import AutoTokenizer as ត្សីងអៃចថស្ក
-
-# j͑ʃɔ ſȷэⅎ
-from datasets import load_dataset
-from transformers import Trainer
+from transformers import DataCollatorWithPadding, TrainingArguments, Trainer
 
 ចាកាពអុភាល = 512 # ſɟᴜ ſɭᴜɘ ꞁȷ̀ɜ ſȷᴜͷ̗
 ផ៏នអេត្សារា = 1e-4 # ʃэc̗ ꞁȷ̀ɔ ſᶘᴜ ɽ͑ʃ'ᴜ
 ហាសិក៏ហ៏ = 24 # j͑ʃɹ ſɭэ ֭ſɭэ
-កេភពាល៏ = 584 # j͑ʃп́ɔ ſɭɔʞ ſןᴜ j͐ʃэ
+កេភពាល៏ = 592 # j͑ʃп́ɔ ſɭɔʞ ſןᴜ j͐ʃэ
 ចាកអុភាល = 512  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗
 ចាកអុភាលត្លាកាក = 512  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗ ſ̀ȷᴜ ſɭᴜƽ ꞁȷ̀ᴜꞇ
 តុម៏នីត្លា = 4  # ɭʃɜ ŋᷠэ }ʃꞇ ſ̀ȷᴜ j͑ʃᴜꞇ
@@ -28,6 +25,9 @@ print(ចាថេសអេស្កេក.eos_token_id)
     "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\j͑ʃп́ ꞁȷ̀ꞇ }ʃᴜƽ.txt",
     "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\j͑ʃƽᴜ ſɭɔʞ\ſɭɹ j͑ʃᴜ ŋᷠꞇ ɭʃᴜƴ ſɭɹ j͑ʃᴜ ŋᷠꞇ ɭʃᴜƴ ſɭɹ j͑ʃᴜ ŋᷠꞇ ɭʃᴜƴ.txt",
     "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\j͑ʃƽᴜ ſɭɔʞ\}ʃɔ ֭ſɭᴜ ı]ɹ ⺓ ſᶘᴜƴ ꞁȷ̀ᴜ }ʃꞇ.txt",
+    "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\j͑ʃƽᴜ ſɭɔʞ\ꞁȷ̀ɹ ſɭꞇ j͑ʃwc̭ ɭʃᴜꞇ.txt",
+    "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\j͑ʃƽᴜ ſɭɔʞ\ꞁȷ̀ꞇ }ʃᴜƽ j͑ʃп́ꞇ ſɭɔƴ.txt",
+    "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\j͑ʃƽᴜ ſɭɔʞ\ꞁȷ̀ꞇ }ʃᴜƽ j͑ʃƽᴜ ſɭɔʞ.txt",
 ]
 
 រឺថា = []
@@ -159,14 +159,28 @@ for សិក៏ហ៏ in range(ហាសិក៏ហ៏):
 os.remove("oliimisaiweu.pt")
 
 # ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ
+សារអារអេង្យិក = DataCollatorWithPadding(tokenizer=ចាថេសអេស្កេក)
+កឹត្សុហាត្សិយុ = TrainingArguments(
+    output_dir='./j͐ʃэ ֭ſɭᴜ ſᶘɹ ɭl̀ɜ',
+    learning_rate=ផ៏នអេត្សារា,
+    per_device_train_batch_size=24,
+    per_device_eval_batch_size=24,
+    num_train_epochs=ហាសិក៏ហ៏,
+    weight_decay=0.01,
+)
 ចាហាត្សិយុ = Trainer(
         model=វេំ,
+        args=កឹត្សុហាត្សិយុ,
         train_dataset=ថុពិថេរអេត្សារា,
-        tokenizer=ចាថេសអេស្កេក
+        tokenizer=ចាថេសអេស្កេក,
+        data_collator=សារអារអេង្យិក
     )
 ចាហាត្សិយុ.train
 
 # j͑ʃ'ɔ ſ̀ȷᴜȝ
-អារាវេំ = "weu.pt"
-torch.save(វេំ.state_dict(), អារាវេំ)
-os.rename(អារាវេំ, "ᶅſɔⅎ.pt")
+ហ្ញអារាវេំ = "weu.pt"
+អារាវេំ = "ᶅſɔⅎ.pt"
+torch.save(វេំ.state_dict(), ហ្ញអារាវេំ)
+if os.path.exists(អារាវេំ):
+    os.remove(អារាវេំ)
+os.rename(ហ្ញអារាវេំ, អារាវេំ)
