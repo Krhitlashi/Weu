@@ -165,13 +165,13 @@ os.remove("oliimisaiweu.pt")
 កឹត្សុហាត្សិយុ = TrainingArguments(
     output_dir='./j͐ʃэ ֭ſɭᴜ ſᶘɹ ɭl̀ɜ',
     learning_rate=ផ៏នអេត្សារា,
-    per_device_train_batch_size=32,
-    per_device_eval_batch_size=32,
+    per_device_train_batch_size=ចាកាពអុភាល,
+    per_device_eval_batch_size=ចាកាពអុភាល,
     num_train_epochs=ហាសិក៏ហ៏,
     weight_decay=1e-2
 )
 ចាហាត្សិយុ = Trainer(
-        model=វេំ,
+        វេំ,
         args=កឹត្សុហាត្សិយុ,
         train_dataset=ថុពិថេរអេត្សារា,
         tokenizer=ចាថេសអេស្កេក,
