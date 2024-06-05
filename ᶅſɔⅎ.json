@@ -1,11 +1,11 @@
 {
   "_name_or_path": "\u1d85\u017f\u0254\u214e.pt",
 
-  "model_type": "gpt2",
+  "model_type": "ᶅſɔⅎ",
   "transformers_version": "4.41.2",
   "use_cache": true,
   "n_embd": 768,
-  "n_head": 12,
+  "n_head": 64,
   "n_inner": null,
   "n_layer": 12,
 

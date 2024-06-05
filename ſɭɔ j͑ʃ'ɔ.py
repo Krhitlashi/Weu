@@ -1,6 +1,6 @@
 import pyperclip as ចាចឺតា
 import importlib.util as ចាថភ
-from transformers import PegasusForCausalLM as ត្សីងអៃវេំ, PegasusConfig as កាម្តាកឺត្សុ, AutoTokenizer as ត្សីងអៃចថស្ក
+from transformers import BloomForCausalLM as ត្សីងអៃវេំ, BloomConfig as កាម្តាកឺត្សុ, AutoTokenizer as ត្សីងអៃចថស្ក
 
 # ꞁȷ̀ᴜ ſ̀ȷɔ
 អារាវេំ = "ᶅſɔⅎ.pt"

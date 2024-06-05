@@ -4,7 +4,6 @@ import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 import torch.nn.functional as F
 from transformers import AutoTokenizer as ត្សីងអៃចថស្ក
-from transformers import DataCollatorWithPadding, TrainingArguments, Trainer
 
 ចាកាពអុភាល = 512 # ſɟᴜ ſɭᴜɘ ꞁȷ̀ɜ ſȷᴜͷ̗
 ផ៏នអេត្សារា = 5e-6 # ʃэc̗ ꞁȷ̀ɔ ſᶘᴜ ɽ͑ʃ'ᴜ
@@ -36,7 +35,7 @@ print(ចាថេសអេស្កេក.eos_token_id)
 for ចាថុពិ in អារាចាថុពិ:
     with open(ចាថុពិ, "r", encoding="utf-8") as file:
         អុជិពេវា = file.readlines()
-    អុជិពេវា = ["<j͑ʃı],> " + line + " <ſ̀ȷſɭſɭ>" for line in អុជិពេវា]
+    អុជិពេវា = [line + " <ſ̀ȷſɭſɭ>" for line in អុជិពេវា]
     អុជិពេវា = ' '.join(អុជិពេវា)
     ជាងាសៃអេស្កេក = ចាថេសអេស្កេក(អុជិពេវា, padding="max_length", truncation=False, max_length=2496)
     រឺថា.extend(ជាងាសៃអេស្កេក["input_ids"])
@@ -75,11 +74,12 @@ else:
     print("ꞁȷ̀ɔ ſ͕ɭᴎɹƽ ⺓ j͑ʃ'ɜ ſןɹ")
 
 សិអុថុពិ = អារាហាថុពិ(ថុពិសិរអុលិមី)
+កិភេស្វេហាតេ = 10
 សិអុផ៏តេមិនី = DataLoader(សិអុថុពិ, batch_size=ចាកាពអុភាល, shuffle=False)
 
 # j͑ʃᴜ ı],ɔ ᶅſɔⅎ
 class វេំ(nn.Module):
-    def __init__(self, កេភពាល៏, ចាកអុភាល, ចាកអុភាលត្លាកាក, តុម៏នីត្លា):
+    def __init__(self, កេភពាល៏, ចាកអុភាល, ចាកអុភាលត្លាកាក, តុម៏នីត្លា, កិភេស្វេហាតេ):
         super(វេំ, self).__init__()
         
         # j͑ʃᴜ ı],ɔ ꞁȷ̀ᴜƣ̋ ꞁȷ̀ɜ ſȷᴜͷ̗
@@ -88,17 +88,22 @@ class វេំ(nn.Module):
         self.rnn = nn.LSTM(ចាកអុភាល, ចាកអុភាលត្លាកាក, តុម៏នីត្លា, batch_first=True)
         # j͑ʃᴜ ı],ɔ ſᶘɔⅎ }ʃꞇ j͑ʃᴜꞇ ſ̀ȷᴜ
         self.linear = nn.Linear(ចាកអុភាលត្លាកាក, កេភពាល៏)
+        # Classification head
+        self.classifier = nn.Linear(ចាកអុភាលត្លាកាក, កិភេស្វេហាតេ)
 
-    def forward(self, អារាង):
+    def forward(self, អារាង, for_classification=False):
         # ꞁȷ̀ᴜƣ̋ ꞁȷ̀ɜ ſȷᴜͷ̗
         អារអុភាល = self.embedding(អារាង)
         # ſ̀ȷᴜ
         ត្សេំនី, _ = self.rnn(អារអុភាល)
-        # ſᶘɔⅎ }ʃꞇ j͑ʃᴜꞇ ſ̀ȷᴜ 
-        ត្សេំនី = self.linear(ត្សេំនី)
-        return ត្សេំនី
+        if for_classification:
+            # Classification head
+            return self.classifier(ត្សេំនី[:, -1, :])
+        else:
+            # ſᶘɔⅎ }ʃꞇ j͑ʃᴜꞇ ſ̀ȷᴜ 
+            return self.linear(ត្សេំនី)
     
-    def generate(self, រឺថា, max_length=100, temperature=1.0):
+    def generate(self, រឺថា, max_length=160, temperature=0.5):
         កុផុយ = None
         ក្ភិសៃ១សៃអេស្កេក = []
  
@@ -113,7 +118,7 @@ class វេំ(nn.Module):
         return ក្ភិសៃ១សៃអេស្កេក
 
 # ſɭʞɹ ᶅſɔⅎ
-វេំ = វេំ(កេភពាល៏, ចាកអុភាល, ចាកអុភាលត្លាកាក, តុម៏នីត្លា)
+វេំ = វេំ(កេភពាល៏, ចាកអុភាល, ចាកអុភាលត្លាកាក, តុម៏នីត្លា, កិភេស្វេហាតេ)
 
 # ſ̀ȷэ }ʃꞇ
 អាត្សាត្ល៏ = nn.CrossEntropyLoss()
@@ -121,6 +126,7 @@ class វេំ(nn.Module):
 
 # ֭ſɭᴜ ſᶘɹ ɭl̀ɜ }ʃꞇ
 for សិក៏ហ៏ in range(ហាសិក៏ហ៏):
+    វេំ.train()
     for ហាតេ in ហាត្សិយុសៃផ៏តេមិនី:
         សាជេសៃក្សាកា = ហាតេ
 
@@ -139,8 +145,8 @@ for សិក៏ហ៏ in range(ហាសិក៏ហ៏):
 
     # j͑ʃɹƣ̋ ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ
     វេំ.eval()
+    សិអុត្ល៏នី = 0
     with torch.no_grad():
-        សិអុត្ល៏នី = 0
         for សិអុហាតេ in សិអុផ៏តេមិនី:
             សិអុសាជេសៃក្សាកា = សិអុហាតេ
             សិអុត្សេំនី = វេំ(សិអុសាជេសៃក្សាកា)
@@ -159,25 +165,6 @@ for សិក៏ហ៏ in range(ហាសិក៏ហ៏):
         torch.save(វេំ.state_dict(), "oliimisaiweu.pt") # ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ j͑ʃᴜꞇ ᶅſɔⅎ.pt
 
 os.remove("oliimisaiweu.pt")
-
-# ꞁȷ̀ɜ j͐ʃɹ ŋᷠꞇ
-សារអារអេង្យិក = DataCollatorWithPadding(tokenizer=ចាថេសអេស្កេក)
-កឹត្សុហាត្សិយុ = TrainingArguments(
-    output_dir='./j͐ʃэ ֭ſɭᴜ ſᶘɹ ɭl̀ɜ',
-    learning_rate=ផ៏នអេត្សារា,
-    per_device_train_batch_size=ចាកាពអុភាល,
-    per_device_eval_batch_size=ចាកាពអុភាល,
-    num_train_epochs=ហាសិក៏ហ៏,
-    weight_decay=1e-2
-)
-ចាហាត្សិយុ = Trainer(
-        វេំ,
-        args=កឹត្សុហាត្សិយុ,
-        train_dataset=ថុពិថេរអេត្សារា,
-        tokenizer=ចាថេសអេស្កេក,
-        data_collator=សារអារអេង្យិក
-    )
-ចាហាត្សិយុ.train
 
 # j͑ʃ'ɔ ſ̀ȷᴜȝ
 ហ្ញអារាវេំ = "weu.pt"
