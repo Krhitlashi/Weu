@@ -47,7 +47,10 @@ def ថេខាវេកិភ(អុជិភេវា):
         do_sample=True,
         top_p=0.625,
         top_k=1,
-        temperature=0.5
+        temperature=0.5,
+        pad_token_id=585,
+        bos_token_id=586,
+        eos_token_id=597
     )
 
     # j͑ʃƽᴜ ſɭɔʞ

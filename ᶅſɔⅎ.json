@@ -22,8 +22,8 @@
   "scale_attn_by_inverse_layer_idx": false,
   "scale_attn_weights": true,
 
-  "layer_norm_eps": 5e-6,
-  "layer_norm_epsilon": 5e-6,
+  "layer_norm_eps": 5e-8,
+  "layer_norm_epsilon": 5e-8,
 
   "initializer_range": 0.02,
   "intermediate_size": 3072,
