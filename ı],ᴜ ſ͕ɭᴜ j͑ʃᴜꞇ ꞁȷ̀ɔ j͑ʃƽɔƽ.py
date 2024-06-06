@@ -50,20 +50,20 @@ class ចាថេសអេស្កេក():
                 ហាតេ[កេភ] = ថុពិ
         return ហាតេ
 
-    def get_vocab(self):
+    def ងឹងកេភ(self):
         កេភ = {k: v for k, v in ភាលកេភអៃ.items()}
         កេភ.update({k: v for k, v in enumerate(ង៏កិ១សៃអេស្កេក)})
         return កេភ
 
-    def save_vocabulary(self, អារាង):
+    def ថេត្លាងកេភ(self, អារាង):
         ក្សាកាស្វេចាថពិ = []
         ចាថពិស្វេកេភ = []
         ចាថពិស្វីកាអេស្កេក = None
 
-        រឹថាកេភ = self.get_vocab()
+        រឹថាកេភ = self.ងឹងកេភ()
         កេភរឹថា = {v: k for k, v in រឹថាកេភ.items()}
 
-        អារាកេភ = os.path.join(អារាង, "vocab.json")
+        អារាកេភ = os.path.join(អារាង, "ſɭɔʞ.json")
         with open(អារាកេភ, "w", encoding="utf-8") as ចថភាល:
             json.dump(កេភរឹថា, ចថភាល, indent=2, ensure_ascii=False)
 
@@ -74,45 +74,33 @@ class ចាថេសអេស្កេក():
 
         return ងឹមឹ
     
-    def save_pretrained(self, អារាង):
-        special_tokens_map_file = os.path.join(
-            អារាង, "ſ͕ɭэ ſɭɹ.json"
-        )
-        tokenizer_config_file = os.path.join(
+    def ថេត្លាង(self, អារាង):
+        ចថកឹត្សុ = os.path.join(
             អារាង, "ſɭw ſᶘɜ ı],ᴜ ſ͕ɭᴜ.json"
         )
-
-        tokenizer_config = copy.deepcopy(self.init_kwargs)
-        special_tokens_map = copy.deepcopy(ង៏កិ១សៃអេស្កេក)
+        ចថង៏កិ = os.path.join(
+            អារាង, "ſ͕ɭэ ſɭɹ.json"
+        )
+        កឹត្សុ = copy.deepcopy(self.init_kwargs)
+        ង៏កិ = copy.deepcopy(ង៏កិ១សៃអេស្កេក)
 
         if len(self.init_inputs) > 0:
-            tokenizer_config["init_inputs"] = copy.deepcopy(self.init_inputs)
-        for file_id in self.vocab_files_names.keys():
-            tokenizer_config.pop(file_id, None)
+            កឹត្សុ["init_inputs"] = copy.deepcopy(self.init_inputs)
+        for រឹថា in self.vocab_files_names.keys():
+            កឹត្សុ.pop(រឹថា, None)
         tokenizer_class = self.__class__.__name__
-        tokenizer_config["tokenizer_class"] = tokenizer_class
+        កឹត្សុ["tokenizer_class"] = tokenizer_class
         if getattr(self, "_auto_map", None) is not None:
-            tokenizer_config["auto_map"] = self._auto_map
+            កឹត្សុ["auto_map"] = self._auto_map
         if getattr(self, "_processor_class", None) is not None:
-            tokenizer_config["processor_class"] = self._processor_class
+            កឹត្សុ["processor_class"] = self._processor_class
 
-        with open(tokenizer_config_file, "w", encoding="utf-8") as f:
-            out_str = json.dumps(tokenizer_config, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
-            f.write(out_str)
-        with open(special_tokens_map_file, "w", encoding="utf-8") as f:
-            out_str = json.dumps(special_tokens_map, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
-            f.write(out_str)
+        with open(ចថកឹត្សុ, "w", encoding="utf-8") as ចថភាល:
+            ចថភាល.write(json.dumps(កឹត្សុ, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
+        with open(ចថង៏កិ, "w", encoding="utf-8") as ចថភាល:
+            ចថភាល.write(json.dumps(ង៏កិ, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
 
-        file_names = (tokenizer_config_file, special_tokens_map_file)
-        save_files = self._save_pretrained(អារាង, file_names=file_names)
-
-        return save_files
-    
-    def _save_pretrained(self, save_directory, file_names):
-        save_directory = str(save_directory)
-        vocab_files = self.save_vocabulary(save_directory)
-
-        return file_names + vocab_files
+        return (ចថកឹត្សុ, ចថង៏កិ) + self.ថេត្លាងកេភ(អារាង)
     
 # ꞁȷ̀ᴜ ſ̀ȷɔ ſȷᴜͷ̗ ſɭɔʞ ꞁȷ̀ᴜꞇ
 with open("ſȷᴜͷ̗ ſɭɔʞ ꞁȷ̀ᴜꞇ.json", "r", encoding="utf-8") as ចថភាល:
@@ -170,20 +158,12 @@ for ចាថុពិ in អារាចាថុពិ:
 
 # j͑ʃᴜ ı],ɔ ſɟᴜ j͑ʃ'ɔɔ˞ ꞁȷ̀ɔ j͑ʃƽɔƽ
 ចាថេសអេស្កេក = ចាថេសអេស្កេក("ſȷᴜͷ̗ ſɭɔʞ ꞁȷ̀ᴜꞇ.json", "ſɭɔʞ ſɟɹƽ ꞁȷ̀ᴜꞇ.txt")
-
 ចាថេសអេស្កេក.អារអេង្យិក = "<ɽ͑ʃ'ſ͕ȷƽ>"
 ចាថេសអេស្កេក.សាជេនី = "<j͑ʃı],>"
 ចាថេសអេស្កេក.ត្លាកាកអានី = "<ſ̀ȷſɭſɭ>"
 ចាថេសអេស្កេក.អុកេកេញា = "<ſɭſɭſ͕ȷ>"
 ចាថេសអេស្កេក.ក្ព៏អេង្យិក = "<ſɭɘſ͕ȷƽ>"
-
-អារអេង្យិក = "<ɽ͑ʃ'ſ͕ȷƽ>"
-សាជេនី = "<j͑ʃı],>"
-ត្លាកាកអានី = "<ſ̀ȷſɭſɭ>"
-អុកេកេញា = "<ſɭſɭſ͕ȷ>"
-ក្ព៏អេង្យិក = "<ſɭɘſ͕ȷƽ>"
-
-ចាថេសអេស្កេក.save_pretrained("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ")
+ចាថេសអេស្កេក.ថេត្លាង("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ")
 
 # j͑ʃƽᴜ ſɭɔʞ ɽ͑ʃ'w j͑ʃ'ᴜ
 def ស្កាកេភ(ចាត្សារា):
