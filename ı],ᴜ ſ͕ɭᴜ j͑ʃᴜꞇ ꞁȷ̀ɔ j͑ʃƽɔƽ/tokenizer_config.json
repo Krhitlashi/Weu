@@ -1,22 +1,10 @@
 {
-  "add_bos_token": false,
-  "add_prefix_space": false,
-  "added_tokens_decoder": {
-    "599": {
-      "content": "<|endoftext|>",
-      "lstrip": false,
-      "normalized": true,
-      "rstrip": false,
-      "single_word": false,
-      "special": true
-    }
-  },
+  "added_tokens_decoder": {},
   "bos_token": "<j͑ʃı],>",
   "clean_up_tokenization_spaces": true,
   "eos_token": "<ſ̀ȷſɭſɭ>",
-  "errors": "replace",
   "model_max_length": 1000000000000000019884624838656,
   "pad_token": "<ɽ͑ʃ'ſ͕ȷƽ>",
-  "tokenizer_class": "GPT2Tokenizer",
+  "tokenizer_class": "ចាថេសអេស្កេក",
   "unk_token": "<ſɭſɭſ͕ȷ>"
 }

@@ -1,6 +1,6 @@
 import pyperclip as ចាចឺតា
 import importlib.util as ចាថភ
-from transformers import BloomForCausalLM as ត្សីងអៃវេំ, BloomConfig as កាម្តាកឺត្សុ, AutoTokenizer as ត្សីងអៃចថស្ក
+from transformers import BloomForCausalLM as ត្សីងអៃវេំ, BloomConfig as កាម្តាកឺត្សុ
 
 # ꞁȷ̀ᴜ ſ̀ȷɔ
 អារាវេំ = "ᶅſɔⅎ.pt"
@@ -9,8 +9,7 @@ from transformers import BloomForCausalLM as ត្សីងអៃវេំ, Blo
 
 # ſɭɹ ɽ͑ʃ'ɔ ſɟᴜ j͑ʃ'ɔɔ˞ ꞁȷ̀ɔ j͑ʃƽɔƽ
 អារាចាថេសអេស្កេក = "ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ.py"
-ចាថេសអេស្កេក = ត្សីងអៃចថស្ក.from_pretrained("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ")
-ចាថុពិ = ចាថភ.spec_from_file_location("custom_module", អារាចាថេសអេស្កេក)
+ចាថុពិ = ចាថភ.spec_from_file_location("ចាថេសអេស្កេក", អារាចាថេសអេស្កេក)
 ចថចាថេសអេស្កេក = ចាថភ.module_from_spec(ចាថុពិ)
 ចាថុពិ.loader.exec_module(ចថចាថេសអេស្កេក)
 
@@ -22,8 +21,6 @@ from transformers import BloomForCausalLM as ត្សីងអៃវេំ, Blo
     "<ſ̀ȷſɭſɭ>",
     "<ſɭɘſ͕ȷƽ>",
 ]
-
-ភាលកេភអៃ = ចាថេសអេស្កេក.get_vocab()
 
 # ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ
 ហាសាភេនី = [

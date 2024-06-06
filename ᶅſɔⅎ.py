@@ -3,6 +3,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 import torch.nn.functional as F
+import importlib.util as ចាថភ
 from transformers import AutoTokenizer as ត្សីងអៃចថស្ក
 
 ចាកាពអុភាល = 512 # ſɟᴜ ſɭᴜɘ ꞁȷ̀ɜ ſȷᴜͷ̗
@@ -12,10 +13,16 @@ from transformers import AutoTokenizer as ត្សីងអៃចថស្ក
 ចាកអុភាល = 512  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗
 ចាកអុភាលត្លាកាក = 512  # ſɟᴜƽ ꞁȷ̀ɜ ſȷᴜͷ̗ ſ̀ȷᴜ ſɭᴜƽ ꞁȷ̀ᴜꞇ
 តុម៏នីត្លា = 4  # ɭʃɜ ŋᷠэ }ʃꞇ ſ̀ȷᴜ j͑ʃᴜꞇ
+កិភេស្វេហាតេ = 16
 
-# ſɭʞɹ ſɟᴜ j͑ʃ'ɔɔ˞ ꞁȷ̀ɔ j͑ʃƽɔƽ
-ចាថេសអេស្កេក = ត្សីងអៃចថស្ក.from_pretrained("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ")
-print(ចាថេសអេស្កេក.eos_token_id)
+# ſɭɹ ɽ͑ʃ'ɔ ſɟᴜ j͑ʃ'ɔɔ˞ ꞁȷ̀ɔ j͑ʃƽɔƽ
+អារាចាថេសអេស្កេក = "ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ.py"
+ចាថុពិ = ចាថភ.spec_from_file_location("ចាថេសអេស្កេក", អារាចាថេសអេស្កេក)
+ចថចាថេសអេស្កេក = ចាថភ.module_from_spec(ចាថុពិ)
+ចាថុពិ.loader.exec_module(ចថចាថេសអេស្កេក)
+
+# ſɭʞɹ ſɟᴜ j͑ʃ'ɔɔ˞ ꞁȷ̀ɔ j͑ʃƽɔƽ 
+ចាថេសអេស្កេក = ចថចាថេសអេស្កេក.ចាថេសអេស្កេក.from_pretrained("ı],ᴜ ſ͕ɭᴜ j͑ʃᴜꞇ ꞁȷ̀ɔ j͑ʃƽɔƽ")
 អារាចាថុពិ = [
     "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ.txt",
     "ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ\ꞁȷ̀ꞇ }ʃᴜƽ ꞁȷ̀ɜ ı],ɹ ſןɔ ᶅſᴜ.txt",
@@ -37,7 +44,7 @@ for ចាថុពិ in អារាចាថុពិ:
         អុជិពេវា = file.readlines()
     អុជិពេវា = [line + " <ſ̀ȷſɭſɭ>" for line in អុជិពេវា]
     អុជិពេវា = ' '.join(អុជិពេវា)
-    ជាងាសៃអេស្កេក = ចាថេសអេស្កេក(អុជិពេវា, padding="max_length", truncation=False, max_length=2496)
+    ជាងាសៃអេស្កេក = ចថចាថេសអេស្កេក.ថេសអេស្កេក(អុជិពេវា)
     រឺថា.extend(ជាងាសៃអេស្កេក["input_ids"])
 
 # ʃэ ֭ſɭɜ ᶅſɔ
@@ -66,7 +73,7 @@ if len(ថុពិថេរអេត្សារា) > 0:
     # j͑ʃᴜ ֭ſɭᴜ ſᶘɹ ɭl̀ɜ
     ហាត្សិយុសៃថុពិ = អារាហាថុពិ(ថុពិថេរអេត្សារា)
     ហាត្សិយុសៃផ៏តេមិនី = DataLoader(ហាត្សិយុសៃថុពិ, batch_size=ចាកាពអុភាល, shuffle=True)
-
+    
     # ſןᴜ ı],ɔⅎ ſᶘɜ
     for ហាតេ in ហាត្សិយុសៃផ៏តេមិនី:
         print(ហាតេ)
@@ -74,7 +81,6 @@ else:
     print("ꞁȷ̀ɔ ſ͕ɭᴎɹƽ ⺓ j͑ʃ'ɜ ſןɹ")
 
 សិអុថុពិ = អារាហាថុពិ(ថុពិសិរអុលិមី)
-កិភេស្វេហាតេ = 10
 សិអុផ៏តេមិនី = DataLoader(សិអុថុពិ, batch_size=ចាកាពអុភាល, shuffle=False)
 
 # j͑ʃᴜ ı],ɔ ᶅſɔⅎ
@@ -88,7 +94,6 @@ class វេំ(nn.Module):
         self.rnn = nn.LSTM(ចាកអុភាល, ចាកអុភាលត្លាកាក, តុម៏នីត្លា, batch_first=True)
         # j͑ʃᴜ ı],ɔ ſᶘɔⅎ }ʃꞇ j͑ʃᴜꞇ ſ̀ȷᴜ
         self.linear = nn.Linear(ចាកអុភាលត្លាកាក, កេភពាល៏)
-        # Classification head
         self.classifier = nn.Linear(ចាកអុភាលត្លាកាក, កិភេស្វេហាតេ)
 
     def forward(self, អារាង, for_classification=False):
@@ -97,25 +102,39 @@ class វេំ(nn.Module):
         # ſ̀ȷᴜ
         ត្សេំនី, _ = self.rnn(អារអុភាល)
         if for_classification:
-            # Classification head
             return self.classifier(ត្សេំនី[:, -1, :])
         else:
             # ſᶘɔⅎ }ʃꞇ j͑ʃᴜꞇ ſ̀ȷᴜ 
             return self.linear(ត្សេំនី)
     
-    def generate(self, រឺថា, max_length=160, temperature=0.5):
+    def generate(self, រឺថា, max_length=160, num_return_sequences=1, no_repeat_ngram_size=1, top_p=0.625, top_k=1, temperature=0.5):
         កុផុយ = None
-        ក្ភិសៃ១សៃអេស្កេក = []
- 
+        ក្ភិសៃ១សៃអេស្កេក = [[] for _ in range(num_return_sequences)]
+        ហាកុតុម៏ = set()
+
         for _ in range(max_length):
             អុចាល, កុផុយ = self.forward(រឺថា, កុផុយ)
             អុចាល /= temperature
             ហុវអុចាល = F.softmax(អុចាល[:, -1], dim=-1)
-            ហុវេសៃ១សៃអេស្កេក = torch.multinomial(ហុវអុចាល, num_samples=1)
-            ក្ភិសៃ១សៃអេស្កេក.append(ហុវេសៃ១សៃអេស្កេក.item())
+
+            ហុវអុចាល = torch.topk(ហុវអុចាល, k=top_k)
+            ហុវអុចាល = ហុវអុចាល / ហុវអុចាល.sum(dim=-1, keepdim=True)
+            ហុវអុចាល = ហុវអុចាល[:, :top_k]
+
+            អុចាល, _ = torch.topk(ហុវអុចាល, k=int(ហុវអុចាល.size(-1) * top_p))
+            ហុវេសៃ១សៃអេស្កេក = torch.multinomial(អុចាល, num_samples=num_return_sequences)
+
+            for i, ជាងាសៃអេស្កេក in enumerate(ហុវេសៃ១សៃអេស្កេក):
+                កុតុម៏ = tuple(ក្ភិសៃ១សៃអេស្កេក[i][-no_repeat_ngram_size:])
+                if កុតុម៏ not in ហាកុតុម៏:
+                    ក្ភិសៃ១សៃអេស្កេក[i].append(ជាងាសៃអេស្កេក.item())
+                    ហាកុតុម៏.add(កុតុម៏)
+                else:
+                    continue
+            
             រឺថា = torch.cat([រឺថា, ហុវេសៃ១សៃអេស្កេក.unsqueeze(1)], dim=-1)
 
-        return ក្ភិសៃ១សៃអេស្កេក
+        return [torch.tensor(seq) for seq in ក្ភិសៃ១សៃអេស្កេក]
 
 # ſɭʞɹ ᶅſɔⅎ
 វេំ = វេំ(កេភពាល៏, ចាកអុភាល, ចាកអុភាលត្លាកាក, តុម៏នីត្លា, កិភេស្វេហាតេ)
