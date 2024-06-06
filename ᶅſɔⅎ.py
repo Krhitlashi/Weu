@@ -40,8 +40,8 @@ from transformers import AutoTokenizer as ត្សីងអៃចថស្ក
 
 # j͑ʃ'ɔ ſȷᴜͷ̗
 for ចាថុពិ in អារាចាថុពិ:
-    with open(ចាថុពិ, "r", encoding="utf-8") as file:
-        អុជិពេវា = file.readlines()
+    with open(ចាថុពិ, "r", encoding="utf-8") as ចថភាល:
+        អុជិពេវា = ចថភាល.readlines()
     អុជិពេវា = [line + " <ſ̀ȷſɭſɭ>" for line in អុជិពេវា]
     អុជិពេវា = ' '.join(អុជិពេវា)
     ជាងាសៃអេស្កេក = ចថចាថេសអេស្កេក.ថេសអេស្កេក(អុជិពេវា)

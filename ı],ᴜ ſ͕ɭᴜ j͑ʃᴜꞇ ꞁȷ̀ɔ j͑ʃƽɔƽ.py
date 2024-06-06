@@ -53,8 +53,8 @@ class ចាថេសអេស្កេក(PreTrainedTokenizer):
         កេភរឹថា = {v: k for k, v in រឹថាកេភ.items()}
 
         អារាកេភ = os.path.join(save_directory, filename_prefix + "-vocab.json" if filename_prefix else "vocab.json")
-        with open(អារាកេភ, "w", encoding="utf-8") as f:
-            json.dump(កេភរឹថា, f, indent=2, ensure_ascii=False)
+        with open(អារាកេភ, "w", encoding="utf-8") as ចថភាល:
+            json.dump(កេភរឹថា, ចថភាល, indent=2, ensure_ascii=False)
 
         if ចាថពិស្វីកាអេស្កេក is not None:
             ងឹមឹ = tuple(ក្សាកាស្វេចាថពិ) + tuple(ចាថពិស្វេកេភ) + (ចាថពិស្វីកាអេស្កេក)
@@ -81,8 +81,8 @@ for ជាងាសៃអេស្កេក in ង៏កិ១សៃអេស្
 
 # j͑ʃ'ɔɔ˞ ꞁȷ̀ɔ j͑ʃƽɔƽ
 def ងឺមឺ១សៃអេស្កេក(ចាថុពិ):
-    with open(ចាថុពិ, "r", encoding="utf-8") as file:
-        អុជិពេវា = file.readlines()
+    with open(ចាថុពិ, "r", encoding="utf-8") as ចថភាល:
+        អុជិពេវា = ចថភាល.readlines()
     អុជិពេវា = ["<j͑ʃı],> " + line + " <ſ̀ȷſɭſɭ>" for line in អុជិពេវា]
     អុជិពេវា = ' '.join(អុជិពេវា)
     
